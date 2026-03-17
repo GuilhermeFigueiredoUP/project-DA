@@ -1,0 +1,30 @@
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.slo
+
+# Libraries
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# Binaries
+*.exe
+*.out
+*.app
+
+# Build Directories
+bin/
+build/
+out/
+dist/
+
+# IDE Configs
+.vscode/
+.idea/
+
+# Logs
+*.log
