@@ -4,7 +4,9 @@
 
 enum DataType {
     SUBMISSION,
-    REVIEWER
+    REVIEWER,
+    SOURCE,
+    SINK
 };
 
 typedef struct DataNode {

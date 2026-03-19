@@ -2,7 +2,7 @@
 #include <string>
 
 #include "include/cli_parser.hpp"
-#include "include/solver.h"
+#include "include/solver.hpp"
 
 int main(int argc, char *argv[]) {
     int ret;

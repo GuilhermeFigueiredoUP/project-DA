@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include "../data_structures/Graph.h"
+#include "../include/node_data.hpp"
+
 #define BIT(n) (1<<n)
 // parameter flag values
 #define PRIMARY_REVIEWER_EXPERTISE BIT(0)
@@ -19,7 +22,7 @@ class Solver {
 
     int processInput();
     int generateOutput();
-    int processDummyInput(); // hard coded data for development
+    void processDummyInput(); // hard coded data for development
 
     // file handling
     void updateInputFile(std::string filePath);
@@ -44,4 +47,5 @@ class Solver {
     bool minReviewsPerSubmission;
     bool maxReviewsPerReviewer;
 
+    Graph<DataNode> graph;
 };
