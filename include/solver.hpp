@@ -16,12 +16,19 @@
 #define GENERATE_ASSIGNMENTS BIT(0)
 #define RISK_ANALYSIS BIT(1)
 
+enum ComputeMode {
+    NO_REPORT,
+    PRIMARY_ONLY,
+    SUBMISSION_SECONDARY
+};
+
 class Solver {
     public:
     Solver();
 
     int processInput();
     int generateOutput();
+    int computeAssignment();
     void processDummyInput(); // hard coded data for development
 
     // file handling
@@ -32,22 +39,36 @@ class Solver {
 
     // parameter configuration
     void updateParameterFlags(uint8_t flags);
-    void updateControlFlags(uint8_t flags);
+    void updateRiskAnalysis(int count);
+    void updateComputeMode(ComputeMode mode);
     void updateMinReviewsPerSubmission(int count);
     void updateMaxReviewsPerReviewer(int count);
 
     private:
+    /* This method is responsible for connecting vertex with edges in the graph, 
+        how the connection is made depends on the parameter flag as follows:
+        - PRIMARY_REVIEWER_EXPERTISE BIT ACTIVE (1) -> will include reveiwer primary expertise when connecting
+        - SECONDARY_REVIEWER_EXPERTISE BIT ACTIVE (1) -> will include reviewer secondary expertise when connecting
+        - PRIMARY_SUBMISSION_DOMAIN BIT ACTIVE (1) -> will include submission primary expertise when connecting
+        - SECONDARY_SUBMISSION_DOMAIN BIT ACTIVE (1) -> will include submission secondary expertise when connecting */
+    void buildGraphEdges(uint8_t flags);
+    void generateVertices();
+    void cleanGraph();
+
     // file paths
     std::string inputFilePath;
     std::string outputFilePath;
 
     // parameters
     uint8_t parameterFlags; // only 4 LSB used
-    uint8_t controlFlags; // only 2 LSB used
-    bool minReviewsPerSubmission;
-    bool maxReviewsPerReviewer;
+    ComputeMode computeMode;
+    int riskAnalysis;
+    int minReviewsPerSubmission;
+    int maxReviewsPerReviewer;
 
     Graph<DataNode> graph;
     DataNode source;
     DataNode sink;
+    std::vector<DataNode> submissions;
+    std::vector<DataNode> reviewers;
 };
