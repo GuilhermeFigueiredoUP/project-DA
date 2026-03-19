@@ -23,6 +23,8 @@ int main(int argc, char *argv[]) {
         if (input == "quit") {
             running = false;
         }
+
+        parseInput(input);
     }
     
     return 0;

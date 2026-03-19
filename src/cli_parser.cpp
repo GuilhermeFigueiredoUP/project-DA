@@ -23,10 +23,51 @@ int parseArguments(int argc, char *argv[]) {
         return -1;
     }
 
+    //funcion call
+
     return 0;
 }
 
-int parseInput(std::string) {
-    // TODO
+int parseInput(std::string input) {
+    // 1. Help Command
+    if (input == "-help") {
+        std::cout << "Available commands:\n";
+        std::cout << "  load <filename> - Load the dataset\n";
+        std::cout << "  run             - Execute the algorithm\n";
+        std::cout << "  quit            - Exit the program\n";
+    } 
+    // Empty Command
+    else if (input.empty()) {
+        return 0; 
+    } 
+    // Quit Command (in main)
+    else if (input == "quit") {
+        return 0;
+    }
+    // Load Command
+    
+    else if (input.find("load ") == 0) { 
+        std::string filename = input.substr(5);
+        
+        if (filename.empty()) {
+            std::cout << "Correct usage: load data.csv\n";
+        } else {
+            std::cout << "Preparing to load file: " << filename << "\n";
+            // funcion call. Example: loadCSVData(filename);
+        }
+    }
+    else if (input.find("load") == 0) {
+        std::cout << "Correct usage: load data.csv\n";
+    }
+    // Run Command
+    else if (input == "run") {
+        std::cout << "Starting the assignment process...\n"; //talvez mudar o texto
+        // funcion call
+        //std::cout << "Algorithm finished! (Results will be printed here later)\n";
+    }
+    // Unknown Command
+    else {
+        std::cout << "Unknown command. Type '-help' for more information.\n";
+    }
     return 0;
 }
