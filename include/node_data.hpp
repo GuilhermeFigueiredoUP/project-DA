@@ -9,7 +9,7 @@ enum DataType {
     SINK
 };
 
-typedef struct DataNode {
+struct DataNode {
     DataType type;
     int id;
     int primaryDomain;
@@ -17,4 +17,9 @@ typedef struct DataNode {
     std::string email;
     std::string nameTitle;
     std::string authors;
+
+    bool operator==(DataNode other) {
+        if(id != other.id) return false;
+        return true;
+    }
 };
