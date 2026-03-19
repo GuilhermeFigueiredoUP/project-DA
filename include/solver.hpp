@@ -48,4 +48,6 @@ class Solver {
     bool maxReviewsPerReviewer;
 
     Graph<DataNode> graph;
+    DataNode source;
+    DataNode sink;
 };

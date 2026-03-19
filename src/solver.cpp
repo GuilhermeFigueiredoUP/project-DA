@@ -1,6 +1,8 @@
 #include "../include/solver.hpp"
 
 Solver::Solver() {
+    this->graph.addVertex(this->source);
+    this->graph.addVertex(this->sink);
     return;
 }
 
@@ -16,12 +18,6 @@ void Solver::processDummyInput() {
     this->controlFlags = 0x00 | GENERATE_ASSIGNMENTS;
     this->maxReviewsPerReviewer = 4;
     this->minReviewsPerSubmission = 5;
-
-    // sink and source
-    DataNode source = {SOURCE, NULL, NULL, NULL, NULL, NULL, NULL};
-    this->graph.addVertex(source);
-    DataNode sink = {SINK, NULL, NULL, NULL, NULL, NULL, NULL};
-    this->graph.addVertex(sink);
 
     // submissions and reviewers
     DataNode data1 = {SUBMISSION, 31, 3, 4, "The Eternal Wheel of Reincarnation",
@@ -39,10 +35,10 @@ void Solver::processDummyInput() {
     this->graph.addVertex(data4);
 
     // edge creation
-    this->graph.addEdge(source, data1, this->minReviewsPerSubmission);
-    this->graph.addEdge(source, data2, this->minReviewsPerSubmission);
-    this->graph.addEdge(data3, sink, this->maxReviewsPerReviewer);
-    this->graph.addEdge(data4, sink, this->maxReviewsPerReviewer);
+    this->graph.addEdge(this->source, data1, this->minReviewsPerSubmission);
+    this->graph.addEdge(this->source, data2, this->minReviewsPerSubmission);
+    this->graph.addEdge(data3, this->sink, this->maxReviewsPerReviewer);
+    this->graph.addEdge(data4, this->sink, this->maxReviewsPerReviewer);
     this->graph.addEdge(data1, data4, 1);
     this->graph.addEdge(data2, data4, 1);
     return;
