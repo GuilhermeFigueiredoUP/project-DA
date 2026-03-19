@@ -3,8 +3,8 @@
 #include <string>
 
 enum DataType {
-    Submission,
-    Reviewer
+    SUBMISSION,
+    REVIEWER
 };
 
 typedef struct DataNode {
@@ -15,4 +15,4 @@ typedef struct DataNode {
     std::string email;
     std::string nameTitle;
     std::string authors;
-}
+};
