@@ -14,5 +14,8 @@ set(SOURCES
     src/cli_parser.cpp
 )
 
+# Redirect binaries to bin/ folder
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/$<CONFIG>)
+
 # Build executable
 add_executable(${PROJECT_NAME} ${SOURCES})
