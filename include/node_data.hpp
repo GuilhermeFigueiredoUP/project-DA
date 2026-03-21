@@ -7,7 +7,7 @@ enum DataType {
     REVIEWER
 };
 
-typedef struct DataNode {
+struct DataNode {
     DataType type;
     int id;
     int primaryDomain;
@@ -15,4 +15,5 @@ typedef struct DataNode {
     std::string email;
     std::string nameTitle;
     std::string authors;
+    bool operator==(const DataNode& other) const { return this->id == other.id; }
 };

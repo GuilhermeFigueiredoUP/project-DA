@@ -2,6 +2,7 @@
 #include <string>
 
 #include "include/cli_parser.hpp"
+#include "include/solver.hpp"
 
 int main(int argc, char *argv[]) {
     int ret;
@@ -14,6 +15,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Welcome to DA2026_PRJ1_T16_G1's algorithm" << std::endl << "type -help for more information." << std::endl;
     std::string input;
     bool running = true;
+    Solver mySolver;
 
     // main loop for CLI (menu mode)
     while (running) {
@@ -23,9 +25,9 @@ int main(int argc, char *argv[]) {
         if (input == "quit") {
             running = false;
         }
-
-        parseInput(input);
+        else {
+            parseInput(input, mySolver);
+        }
     }
-    
     return 0;
 }

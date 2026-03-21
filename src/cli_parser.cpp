@@ -1,4 +1,5 @@
 #include "../include/cli_parser.hpp"
+#include "../include/solver.hpp"
 
 #include <iostream>
 #include <cstring>
@@ -23,13 +24,23 @@ int parseArguments(int argc, char *argv[]) {
         return -1;
     }
 
-    //funcion call
+    std::cout << "Batch mode: Processing...\n";
+    Solver batchSolver;
+
+    batchSolver.updateInputFile(inputFile);
+    batchSolver.updateOutputFile(outputFile);
+
+    batchSolver.processInput();
+    batchSolver.computeAssignment();
+    batchSolver.generateOutput();
+
+    std::cout << "Batch mode: Finished successfully!\n";
 
     return 0;
 }
 
-int parseInput(std::string input) {
-    // 1. Help Command
+int parseInput(std::string input, Solver& solver) {
+    // Help Command
     if (input == "-help") {
         std::cout << "Available commands:\n";
         std::cout << "  load <filename> - Load the dataset\n";
@@ -45,7 +56,6 @@ int parseInput(std::string input) {
         return 0;
     }
     // Load Command
-    
     else if (input.find("load ") == 0) { 
         std::string filename = input.substr(5);
         
@@ -53,7 +63,9 @@ int parseInput(std::string input) {
             std::cout << "Correct usage: load data.csv\n";
         } else {
             std::cout << "Preparing to load file: " << filename << "\n";
-            // funcion call. Example: loadCSVData(filename);
+            solver.updateInputFile(filename);
+            solver.processInput();
+            std::cout << "File loaded.\n";
         }
     }
     else if (input.find("load") == 0) {
@@ -62,8 +74,9 @@ int parseInput(std::string input) {
     // Run Command
     else if (input == "run") {
         std::cout << "Starting the assignment process...\n"; //talvez mudar o texto
-        // funcion call
-        //std::cout << "Algorithm finished! (Results will be printed here later)\n";
+        solver.computeAssignment();
+        solver.generateOutput();
+        std::cout << "Algorithm finished!\n";
     }
     // Unknown Command
     else {
