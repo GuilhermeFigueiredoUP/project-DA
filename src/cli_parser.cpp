@@ -57,10 +57,6 @@ int parseInput(std::string input, Solver& solver) {
     // Empty Command
     else if (input.empty()) {
         return 0; 
-    } 
-    // Quit Command (in main)
-    else if (input == "quit") {
-        return 0;
     }
     // Load Command
     else if (input.find("load ") == 0) {
@@ -132,7 +128,7 @@ int parseInput(std::string input, Solver& solver) {
             }
         }
     }
-    // Set Risk Analysis (0, 1, or K)
+    // Set Risk Analysis Command
     else if (input.find("set_risk ") == 0) {
         std::string numberStr = input.substr(9);
         if (numberStr.find('.') != std::string::npos) std::cout << "Please enter a whole number.\n";
@@ -174,8 +170,18 @@ int parseInput(std::string input, Solver& solver) {
     }
     // Reset Command
     else if (input == "reset") {
-        //TODO
-        std::cout << "Parameters have been reset to their original values.\n";
+        std::string currentFile = solver.getInputFile();
+
+        if (currentFile.empty()) {
+            std::cout << "Error: No file has been loaded yet. Use 'load <filename>' first.\n";
+        } else {
+            std::cout << "Reloading '" << currentFile << "'...\n";
+            if (solver.processInput() == 0) {
+                std::cout << "Parameters successfully reset to the values in the file.\n";
+            } else {
+                std::cout << "Error reloading the file.\n";
+            }
+        }
     }
     // Unknown Command
     else {

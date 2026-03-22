@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         ret = parseArguments(argc, argv);
         if (ret != 0) return ret;
-        else return 0;
+        return 0;
     }
 
     std::cout << "Welcome to DA2026_PRJ1_T16_G1's algorithm" << std::endl << "type -help for more information." << std::endl;
