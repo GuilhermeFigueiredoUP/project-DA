@@ -1,5 +1,5 @@
 #pragma once
-using namespace std;
+
 #include "node_data.hpp"
 #include "solver.hpp"
 
@@ -10,7 +10,7 @@ using namespace std;
 int parseArguments(int argc, char *argv[]);
 
 // parser for menu mode execution
-int parseInput(string inputFile, vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
+int parseInput(std::string inputFile, vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
 
 
 // --- helper methods ---

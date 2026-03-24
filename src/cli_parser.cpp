@@ -6,7 +6,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
 #include <stdexcept>
 
 bool hasCsvExtension(const std::string &filename) {
@@ -49,10 +48,10 @@ int parseArguments(int argc, char *argv[]) {
 }
 
 std::string remove_espacos( std::string s){
-    const string whitespace= " \t\r\n";
+    const std::string whitespace= " \t\r\n";
     s.erase(0, s.find_first_not_of(whitespace)); // apaga de 'a' a 'b'
     size_t last= s.find_last_not_of(whitespace);
-    if (last != string::npos){
+    if (last != std::string::npos){
         s.erase(last+1);
     }
     return s;
@@ -64,10 +63,10 @@ std::string remove_aspas(const std::string &s){
     return result; // se p qlq motivo n tiver aspas
 }
 
-int parseInput(std::string inputFile, vector<DataNode>& allNodes, Parameters &params, Control&ctrl) {
-    ifstream file(inputFile);
+int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameters &params, Control&ctrl) {
+    std::ifstream file(inputFile);
     if (!file.is_open()){
-        cerr <<"Error: not possible to open file "<<inputFile<<endl;
+        std::cerr <<"Error: not possible to open file "<<inputFile<<std::endl;
         return -1;
     }
     
@@ -142,7 +141,7 @@ int parseInput(std::string inputFile, vector<DataNode>& allNodes, Parameters &pa
             else if (key== "SecondaryReviewerExpertise") params.SecondaryReviewerExpertise=stoi(value);
             else if (key== "PrimarySubmissionDomain") params.PrimarySubmissionDomain=stoi(value);
             else if (key== "SecondarySubmissionDomain") params.SecondarySubmissionDomain=stoi(value);
-            else cerr <<"Warning: unknown parameter: "<< key<< endl; 
+            else std::cerr <<"Warning: unknown parameter: "<< key<< std::endl; 
 
         }
         else if (current_section == "control") {
@@ -155,7 +154,7 @@ int parseInput(std::string inputFile, vector<DataNode>& allNodes, Parameters &pa
             else if (key== "RiskAnalysis") ctrl.RiskAnalysis=stoi(value);
             else if (key== "OutputFileName") ctrl.OutputFileName=remove_aspas(value);
             
-            else cerr <<"Warning: unknown control parameter: "<< key<< endl; 
+            else std::cerr <<"Warning: unknown control parameter: "<< key<< std::endl; 
 
         }
     }
