@@ -9,6 +9,10 @@ bool hasCsvExtension(const std::string &filename) {
     return filename.size() >= 4 && filename.substr(filename.size() - 4) == ".csv";
 }
 
+int parseInput(std::string input, Solver& solver) {
+    return false;
+}
+
 int parseArguments(int argc, char *argv[]) {
     // check argument count and batch mode flag
     if (argc != 4 || strcmp(argv[1], "-b") != 0) {

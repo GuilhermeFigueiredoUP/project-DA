@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
             running = false;
         }
         else {
-            parseInput(input, mySolver);
+            Terminal_cmd(input, mySolver);
         }
     }
     return 0;
