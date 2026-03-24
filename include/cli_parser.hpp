@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 #include "node_data.hpp"
+#include "solver.hpp"
+
 #include <string>
 #include <vector>
 
@@ -13,3 +15,6 @@ int parseInput(string inputFile, vector<DataNode>& allNodes,Parameters &params, 
 
 // --- helper methods ---
 bool hasCsvExtension(const std::string &filename);
+
+// --- terminal commands ---
+int Terminal_cmd(std::string input, Solver& solver);
