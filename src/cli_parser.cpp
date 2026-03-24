@@ -50,7 +50,7 @@ string remove_aspas(const string &s){
     return result; // se p qlq motivo n tiver aspas
 }
 
-int parseInput(string inputFile, vector<Submission>& allSubmissions, vector<Reviewer>& allReviewers, Parameters &params, Control&ctrl) {
+int parseInput(string inputFile, vector<DataNode>& allNodes, Parameters &params, Control&ctrl) {
     ifstream file(inputFile);
     if (!file.is_open()){
         cerr <<"Error: not possible to open file "<<inputFile<<endl;
@@ -80,37 +80,39 @@ int parseInput(string inputFile, vector<Submission>& allSubmissions, vector<Revi
         string field;
 
         if (current_section == "submissions") {
-            Submission s;
+            DataNode s;
+            s.type =SUBMISSION;
             getline(ss, field, ','); s.id = stoi(remove_espaços(field)); // stoi converte string em int
-            getline(ss, field, ','); s.title = remove_aspas(field);
+            getline(ss, field, ','); s.nameTitle = remove_aspas(field);
             getline(ss, field, ','); s.authors = remove_espaços(field);
             getline(ss, field, ','); s.email = remove_espaços(field);
-            getline(ss, field, ','); s.primary_topic = stoi(remove_espaços(field));
+            getline(ss, field, ','); s.primaryDomain = stoi(remove_espaços(field));
             
-            s.secondary_topic=-1;
+            s.secondaryDomain=-1;
             if (getline(ss, field, ',')){
                 string f = remove_espaços(field);
-                if (!f.empty()) s.secondary_topic=stoi(f);
+                if (!f.empty()) s.secondaryDomain=stoi(f);
             }
 
-            allSubmissions.push_back(s);
+            allNodes.push_back(s);
 
         }
 
         else if (current_section == "reviewers") {
-            Reviewer r;
+            DataNode r;
+            r.type = REVIEWER;
             getline(ss, field, ','); r.id = stoi(remove_espaços(field));
-            getline(ss, field, ','); r.name = remove_espaços(field);
+            getline(ss, field, ','); r.nameTitle = remove_espaços(field);
             getline(ss, field, ','); r.email = remove_espaços(field);
-            getline(ss, field, ','); r.primary_topic = stoi(remove_espaços(field));
+            getline(ss, field, ','); r.primaryDomain = stoi(remove_espaços(field));
             
-            r.secondary_topic=-1;
+            r.secondaryDomain=-1;
             if (getline(ss, field, ',')){
                 string f = remove_espaços(field);
-                if (!f.empty()) r.secondary_topic=stoi(f);
+                if (!f.empty()) r.secondaryDomain=stoi(f);
             }
 
-            allReviewers.push_back(r);
+            allNodes.push_back(r);
 
         }
 

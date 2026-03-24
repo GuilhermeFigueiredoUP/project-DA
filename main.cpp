@@ -10,13 +10,11 @@ int main(int argc, char *argv[]) {
         
         if (parseArguments(argc, argv) != 0) return -1;
         
-        vector<Submission> subs;
-        vector<Reviewer>reviewers;
+        vector<DataNode> allNodes;
         Parameters params;
         Control ctrl;
-
         
-        if(parseInput(argv[2],subs,reviewers,params,ctrl)!=0)return -1;
+        if(parseInput(argv[2],allNodes,params,ctrl)!=0)return -1;
         
         return 0;
         
