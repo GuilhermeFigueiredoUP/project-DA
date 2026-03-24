@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
         if (ret != 0) return ret;
         return 0;
     }
+    Solver solver;
 
     std::cout << "Welcome to DA2026_PRJ1_T16_G1's algorithm" << std::endl << "type -help for more information." << std::endl;
     std::string input;

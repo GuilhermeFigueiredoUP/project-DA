@@ -4,7 +4,9 @@
 
 enum DataType {
     SUBMISSION,
-    REVIEWER
+    REVIEWER,
+    SOURCE,
+    SINK
 };
 
 struct DataNode {
@@ -15,5 +17,9 @@ struct DataNode {
     std::string email;
     std::string nameTitle;
     std::string authors;
-    bool operator==(const DataNode& other) const { return this->id == other.id; }
+
+    bool operator==(DataNode other) {
+        if(id != other.id) return false;
+        return true;
+    }
 };

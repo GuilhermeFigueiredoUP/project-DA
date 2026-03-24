@@ -1,4 +1,5 @@
 #include "../include/solver.hpp"
+#include "../include/edmonds_karp.hpp"
 
 Solver::Solver() {
     this->graph.addVertex(this->source);
@@ -39,8 +40,24 @@ void Solver::processDummyInput() {
 }
 
 int Solver::computeAssignment() {
-    // TODO: implement assignment computation using Edmonds Karp
-    return 1;
+    buildGraphEdges(PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN);
+    int ret = computeEdmondsKarp(this->graph, this->source, this->sink);
+    if (ret != 0) return ret;
+    switch(this->computeMode) {
+        case ALL:
+            buildGraphEdges(SECONDARY_REVIEWER_EXPERTISE | SECONDARY_SUBMISSION_DOMAIN | PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN);
+            ret = computeEdmondsKarp(this->graph, this->source, this->sink);
+            if (ret != 0) return ret;
+            break;
+        case SUBMISSION_SECONDARY:
+            buildGraphEdges(PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN | SECONDARY_SUBMISSION_DOMAIN);
+            ret = computeEdmondsKarp(this->graph, this->source, this->sink);
+            if (ret != 0) return ret;
+            break;
+        default:
+        break;
+    }
+    return 0;
 }
 
 // --- File Handling ---
@@ -121,10 +138,20 @@ void Solver::generateVertices() {
 void Solver::buildGraphEdges(uint8_t flags) {
     for (DataNode &submissionNode : this->submissions) {
         for (DataNode &reviewerNode : this->reviewers) {
+            if (edgeExists(submissionNode, reviewerNode)) continue;
             if ((flags & PRIMARY_SUBMISSION_DOMAIN) || ((flags & SECONDARY_SUBMISSION_DOMAIN) && submissionNode.secondaryDomain != -1)) {
                 if (flags & PRIMARY_REVIEWER_EXPERTISE) this->graph.addEdge(submissionNode, reviewerNode, 1);
                 else if ((flags & SECONDARY_REVIEWER_EXPERTISE) && (reviewerNode.secondaryDomain != -1)) this->graph.addEdge(submissionNode, reviewerNode, 1);
             }
         }
     }
+}
+
+bool Solver::edgeExists(DataNode submission, DataNode reviewer) {
+    for (DataNode &submissionNode : this->submissions) {
+        for (Edge<DataNode> *edge : this->graph.findVertex(submissionNode)->getAdj()) {
+            if (edge->getDest()->getInfo() == reviewer) return true;
+        }
+    }
+    return false;
 }
