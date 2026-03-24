@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 #include <string>
 
 enum DataType {
@@ -22,4 +22,20 @@ struct DataNode {
         if(id != other.id) return false;
         return true;
     }
+    };
+
+    struct Parameters{
+    int MinReviewsPerSubmission;
+    int MaxReviewsPerReviewer;
+    int PrimaryReviewerExpertise;
+    int SecondaryReviewerExpertise;
+    int PrimarySubmissionDomain;
+    int SecondarySubmissionDomain;
+    };
+
+
+struct Control{
+    int GenerateAssignments;
+    int RiskAnalysis;
+    std::string OutputFileName;
 };
