@@ -13,6 +13,7 @@ set(SOURCES
     main.cpp
     src/cli_parser.cpp
     src/solver.cpp
+    src/edmonds_karp.cpp
 )
 
 # Redirect binaries to bin/ folder

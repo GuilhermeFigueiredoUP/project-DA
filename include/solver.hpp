@@ -19,7 +19,8 @@
 enum ComputeMode {
     NO_REPORT,
     PRIMARY_ONLY,
-    SUBMISSION_SECONDARY
+    SUBMISSION_SECONDARY,
+    ALL
 };
 
 class Solver {
@@ -54,6 +55,7 @@ class Solver {
     void buildGraphEdges(uint8_t flags);
     void generateVertices();
     void cleanGraph();
+    bool edgeExists(DataNode submission, DataNode reviewer);
 
     // file paths
     std::string inputFilePath;
