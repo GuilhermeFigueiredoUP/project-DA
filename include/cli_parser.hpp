@@ -11,3 +11,6 @@ int parseInput(std::string input, Solver& solver);
 
 // --- helper methods ---
 bool hasCsvExtension(const std::string &filename);
+
+// --- terminal commands ---
+int Terminal_cmd(std::string input, Solver& solver);

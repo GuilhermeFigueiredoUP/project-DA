@@ -40,7 +40,7 @@ int parseArguments(int argc, char *argv[]) {
     return 0;
 }
 
-int parseInput(std::string input, Solver& solver) {
+int Terminal_cmd(std::string input, Solver& solver) {
     // Help Command
     if (input == "-help" || input == "help") {
         std::cout << "Available commands:\n";
