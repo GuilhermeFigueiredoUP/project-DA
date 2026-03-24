@@ -1,4 +1,5 @@
 #pragma once
+#include "solver.hpp"
 
 #include <string>
 
@@ -6,7 +7,10 @@
 int parseArguments(int argc, char *argv[]);
 
 // parser for menu mode execution
-int parseInput(std::string);
+int parseInput(std::string input, Solver& solver);
 
 // --- helper methods ---
 bool hasCsvExtension(const std::string &filename);
+
+// --- terminal commands ---
+int Terminal_cmd(std::string input, Solver& solver);
