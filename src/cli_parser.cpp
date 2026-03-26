@@ -14,7 +14,7 @@ bool hasCsvExtension(const std::string &filename) {
     return filename.size() >= 4 && filename.substr(filename.size() - 4) == ".csv";
 }
 
-int parseArguments(int argc, char *argv[]) {
+int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) {
     // check argument count and batch mode flag
     if (argc != 4 || strcmp(argv[1], "-b") != 0) {
         std::cerr << "Correct usage: program -b input.csv output.csv" << std::endl;
@@ -23,12 +23,17 @@ int parseArguments(int argc, char *argv[]) {
 
     std::string inputFile = argv[2];
     std::string outputFile = argv[3];
-
+    
     // check .csv extension
     if (!hasCsvExtension(inputFile) || !hasCsvExtension(outputFile)) {
         std::cerr << "Error: files must have .csv extension\n";
         return -1;
     }
+    int status = parseInput(inputFile,allNodes,params,ctrl);
+    if (status != 0) {
+        return -1;
+    }
+    
 
     return 0;
 }
@@ -137,8 +142,9 @@ int parseInput(string inputFile, vector<DataNode>& allNodes, Parameters &params,
             
         
             if (key== "GenerateAssignments") ctrl.GenerateAssignments=stoi(value);
-            else if (key== "RiskAnalysis") ctrl.RiskAnalysis=stoi(value);
-            else if (key== "OutputFileName") ctrl.OutputFileName=remove_aspas(value);
+            std::cout << "[PARSER DEBUG] Li o valor: " << value << std::endl;
+            if (key== "RiskAnalysis") ctrl.RiskAnalysis=stoi(value);
+            if (key== "OutputFileName") ctrl.OutputFileName=remove_aspas(value);
             
             else cerr <<"Warning: unknown control parameter: "<< key<< endl; 
 
@@ -146,3 +152,4 @@ int parseInput(string inputFile, vector<DataNode>& allNodes, Parameters &params,
     }
     return 0;
 }
+

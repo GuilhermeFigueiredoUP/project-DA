@@ -5,7 +5,7 @@ using namespace std;
 #include <vector>
 
 // parser for batch mode execution
-int parseArguments(int argc, char *argv[]);
+int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) ;
 
 // parser for menu mode execution
 int parseInput(string inputFile, vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
@@ -13,3 +13,5 @@ int parseInput(string inputFile, vector<DataNode>& allNodes,Parameters &params, 
 
 // --- helper methods ---
 bool hasCsvExtension(const std::string &filename);
+
+int submission_count(const std::vector<DataNode>& allNodes);
