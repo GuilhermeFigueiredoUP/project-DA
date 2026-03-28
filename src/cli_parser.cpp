@@ -1,3 +1,7 @@
+/**
+ * @file cli_parser.cpp
+ * @brief recieves input from command line and reads the contents of the input file
+ */
 #include "../include/cli_parser.hpp"
 
 #include <iostream>
@@ -9,10 +13,15 @@
 #include <vector>
 
 using namespace std;
-
+/// @brief verifies if the file has ".csv" extension
+///@note case sensitive  
+/// @param filename name of the file
+/// @return true if file ends in ".csv" and false if not
 bool hasCsvExtension(const std::string &filename) {
     return filename.size() >= 4 && filename.substr(filename.size() - 4) == ".csv";
 }
+
+
 
 int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) {
     // check argument count and batch mode flag
@@ -37,19 +46,26 @@ int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Par
 
     return 0;
 }
-
-string remove_espaços( string s){
-    const string whitespace= " \t\r\n";
-    s.erase(0, s.find_first_not_of(whitespace)); // apaga de 'a' a 'b'
-    size_t last= s.find_last_not_of(whitespace);
-    if (last != string::npos){
-        s.erase(last+1);
+/// @brief removes the unecessary whitespaces in a string
+/// @param s input string to process
+/// @return string without the whitespaces
+string remove_espaços(const std::string &s){
+    std::string res =s;
+    const std::string whitespace= " \t\r\n";
+    size_t first =res.find_first_not_of(whitespace);
+    if (first == std::string::npos) return ""; 
+    res.erase(0,first);
+    size_t last= res.find_last_not_of(whitespace);
+    if (last != std::string::npos){
+        res.erase(last+1);
     }
-    return s;
+    return res;
 }
-
-string remove_aspas(const string &s){
-    string result = remove_espaços(s);
+/// @brief removes the quotation marks from a string 
+/// @param s input string to process 
+/// @return string with just it's text (non-whitespaces/quotation marks)
+std::string remove_aspas(const std::string &s){
+    std::string result = remove_espaços(s);
     if (result[0] =='"' && result[result.size()-1]=='"' ) return result.substr(1,result.size()-2);
     return result; // se p qlq motivo n tiver aspas
 }

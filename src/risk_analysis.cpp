@@ -7,7 +7,7 @@
 #include<fstream>
 
 
-// o sub e o gajo que eu vou tirar para ver se ele da na mm c o minreviewers p submission: RIGHT?
+
 void risk_analysis (const std::vector<DataNode>& allNodes, const Parameters& params, const Control& ctrl, const std::string& outName){
     if (ctrl.RiskAnalysis <=0||ctrl.RiskAnalysis >1) return ;
     std::vector <int> offending_reviewers;
