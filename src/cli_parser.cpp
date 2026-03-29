@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+
 /// @brief verifies if the file has ".csv" extension
 ///@note case sensitive  
 /// @param filename name of the file
@@ -158,7 +158,7 @@ int parseInput(string inputFile, vector<DataNode>& allNodes, Parameters &params,
             
         
             if (key== "GenerateAssignments") ctrl.GenerateAssignments=stoi(value);
-            std::cout << "[PARSER DEBUG] Li o valor: " << value << std::endl;
+            //std::cout << "[PARSER DEBUG] Li o valor: " << value << std::endl;
             if (key== "RiskAnalysis") ctrl.RiskAnalysis=stoi(value);
             if (key== "OutputFileName") ctrl.OutputFileName=remove_aspas(value);
             
@@ -168,4 +168,5 @@ int parseInput(string inputFile, vector<DataNode>& allNodes, Parameters &params,
     }
     return 0;
 }
+
 

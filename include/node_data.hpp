@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-using namespace std; 
+
 enum DataType {
     SUBMISSION,
     REVIEWER,
@@ -37,5 +37,5 @@ struct DataNode {
 struct Control{
     int GenerateAssignments;
     int RiskAnalysis;
-    string OutputFileName;
+    std::string OutputFileName;
 };

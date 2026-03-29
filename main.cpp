@@ -14,17 +14,7 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         ret = parseArguments(argc, argv, allNodes, params, ctrl);
         if (ret != 0) return ret;
-        
-        if (argc >=4) final_file = argv[3];
-        else{
-            final_file = ctrl.OutputFileName.empty()? "output.csv": ctrl.OutputFileName;
-        }
-        std::cout << "DEBUG MAIN: RiskAnalysis vale " << ctrl.RiskAnalysis << std::endl;
-        if (ctrl.RiskAnalysis ==1){
-            risk_analysis(allNodes, params, ctrl, final_file);
-        }
         return 0;
-        
     }
     Solver solver;
 
@@ -32,6 +22,7 @@ int main(int argc, char *argv[]) {
     std::string input;
     bool running = true;
     
+    Solver mySolver;
 
     // main loop for CLI (menu mode)
     while (running) {
@@ -41,7 +32,9 @@ int main(int argc, char *argv[]) {
         if (input == "quit") {
             running = false;
         }
+        else {
+            Terminal_cmd(input, mySolver);
+        }
     }
-    
     return 0;
 }

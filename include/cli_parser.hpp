@@ -1,7 +1,9 @@
 
 #pragma once
-using namespace std;
+
 #include "node_data.hpp"
+#include "solver.hpp"
+
 #include <string>
 #include <vector>
 

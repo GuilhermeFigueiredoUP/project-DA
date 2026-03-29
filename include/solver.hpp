@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <string>
+#include <cstdint>
 
 #include "../data_structures/Graph.h"
 #include "../include/node_data.hpp"
