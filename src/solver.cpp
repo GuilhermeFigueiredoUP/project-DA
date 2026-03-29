@@ -1,6 +1,6 @@
 #include "../include/solver.hpp"
 #include "../include/edmonds_karp.hpp"
-
+#include <cstdint>
 Solver::Solver() {
     this->graph.addVertex(this->source);
     this->graph.addVertex(this->sink);
@@ -129,6 +129,7 @@ void Solver::generateVertices() {
         this->graph.addEdge(this->source, node, this->minReviewsPerSubmission);
     }
     for (DataNode &node : this->reviewers) {
+        if (node.id == this ->skipReviewerId) continue; 
         this->graph.addVertex(node);
         this->graph.addEdge(node, this->sink, maxReviewsPerReviewer);
     }
@@ -138,6 +139,8 @@ void Solver::generateVertices() {
 void Solver::buildGraphEdges(uint8_t flags) {
     for (DataNode &submissionNode : this->submissions) {
         for (DataNode &reviewerNode : this->reviewers) {
+            
+            if (reviewerNode.id == this -> skipReviewerId) continue; // usado para o riskanalysis VER
             if (edgeExists(submissionNode, reviewerNode)) continue;
             if ((flags & PRIMARY_SUBMISSION_DOMAIN) || ((flags & SECONDARY_SUBMISSION_DOMAIN) && submissionNode.secondaryDomain != -1)) {
                 if (flags & PRIMARY_REVIEWER_EXPERTISE) this->graph.addEdge(submissionNode, reviewerNode, 1);
@@ -154,4 +157,35 @@ bool Solver::edgeExists(DataNode submission, DataNode reviewer) {
         }
     }
     return false;
+}
+
+// baldi
+int Solver:: getTotalFlow(){
+    double total=0;
+    Vertex<DataNode>* sinkVert = graph.findVertex(this ->sink);
+    if (sinkVert){
+        for (auto e: sinkVert -> getIncoming()){
+            total += e->getFlow();
+        }
+    }
+    return (int) total;
+}
+
+void Solver:: setSubmissions (const std::vector<DataNode>& allNodes){
+    this -> submissions.clear();
+    for (const auto&n: allNodes){
+        if (n.type == SUBMISSION) this -> submissions.push_back(n);
+    }
+}
+
+// alteração baldi - os reviewers e as submissions estavam a ser misturados
+void Solver :: setReviewers(const std::vector<DataNode>&allNodes){
+     this -> submissions.clear();
+    for (const auto&n: allNodes){
+        if (n.type == REVIEWER) this -> reviewers.push_back(n);
+    }
+}
+
+void Solver:: setSkipReviewerId(int id){
+    this ->skipReviewerId=id;
 }

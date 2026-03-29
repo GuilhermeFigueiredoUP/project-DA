@@ -3,11 +3,16 @@
 
 #include "include/cli_parser.hpp"
 #include "include/solver.hpp"
+#include "risk_analysis.hpp"
 
 int main(int argc, char *argv[]) {
     int ret;
+    std:: vector<DataNode> allNodes;
+    Parameters params;
+    Control ctrl;
+    std::string final_file;
     if (argc > 1) {
-        ret = parseArguments(argc, argv);
+        ret = parseArguments(argc, argv, allNodes, params, ctrl);
         if (ret != 0) return ret;
         return 0;
     }
@@ -16,6 +21,7 @@ int main(int argc, char *argv[]) {
     std::cout << "Welcome to DA2026_PRJ1_T16_G1's algorithm" << std::endl << "type -help for more information." << std::endl;
     std::string input;
     bool running = true;
+    
     Solver mySolver;
 
     // main loop for CLI (menu mode)
