@@ -28,7 +28,6 @@ class Solver {
     public:
     Solver();
 
-    int processInput();
     int generateOutput();
     int computeAssignment();
     void processDummyInput(); // hard coded data for development
@@ -45,6 +44,16 @@ class Solver {
     void updateComputeMode(ComputeMode mode);
     void updateMinReviewsPerSubmission(int count);
     void updateMaxReviewsPerReviewer(int count);
+
+    // getters
+    int getRiskAnalysis();
+    int getMinReviewsPerSubmission();
+    int getMaxReviewersPerSubmission();
+    ComputeMode getComputeMode();
+    int getSubmissionAmount();
+
+    std::vector<DataNode> getSubmissions();
+    std::vector<DataNode> getReviewers();
     
     // baldi para o risk_analysis:
     int skipReviewerId = -1;

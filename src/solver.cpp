@@ -1,5 +1,6 @@
 #include "../include/solver.hpp"
 #include "../include/edmonds_karp.hpp"
+#include "../include/risk_analysis.hpp"
 
 #include <cstdint>
 #include <fstream>
@@ -12,11 +13,6 @@ Solver::Solver() {
     this->graph.addVertex(this->source);
     this->graph.addVertex(this->sink);
     return;
-}
-
-int Solver::processInput() {
-    // TODO: implement data file parsing
-    return 1;
 }
 
 // utilises the values in the project description example, for development purposes
@@ -195,29 +191,17 @@ int Solver::generateOutput() {
             outFile << subNode.id << ", " << subNode.primaryDomain << ", " << missingCount << "\n";
         }
     }
-    //2. success
-    else {
-        std::sort(matches.begin(), matches.end(), [](const MatchRecord &a, const MatchRecord &b) {
-            if (a.subId == b.subId) return a.revId < b.revId;
-            return a.subId < b.subId;
-        });
-
-        outFile << "#SubmissionId, ReviewerId, Match\n";
-        for (const auto &m : matches) {
-            outFile << m.subId << ", " << m.revId << ", " << m.domain << "\n";
+    //4. Risk Analysis
+    if (this->riskAnalysis == 1) {
+        outFile << "#Risk Analysis: 1\n"; 
+        std::vector<int> offenders = risk_analysis(this, this->outputFilePath);
+        if (!offenders.empty()) {
+            outFile << offenders[0];
+            for (int i = 1; i < offenders.size(); i++) {
+                outFile << ", " << offenders[i];
+            }
+            outFile << "\n";
         }
-
-        std::sort(matches.begin(), matches.end(), [](const MatchRecord &a, const MatchRecord &b) {
-            if (a.revId == b.revId) return a.subId < b.subId;
-            return a.revId < b.revId;
-        });
-
-        outFile << "#ReviewerId, SubmissionId, Match\n";
-        for (const auto &m : matches) {
-            outFile << m.revId << ", " << m.subId << ", " << m.domain << "\n";
-        }
-
-        outFile << "#Total: " << matches.size() << "\n";
     }
     outFile.close();
     return 0;
@@ -326,10 +310,8 @@ void Solver::buildGraphEdges(uint8_t flags) {
 }
 
 bool Solver::edgeExists(DataNode submission, DataNode reviewer) {
-    for (DataNode &submissionNode : this->submissions) {
-        for (Edge<DataNode> *edge : this->graph.findVertex(submissionNode)->getAdj()) {
-            if (edge->getDest()->getInfo() == reviewer) return true;
-        }
+    for (Edge<DataNode> *edge : this->graph.findVertex(submission)->getAdj()) {
+        if (edge->getDest()->getInfo() == reviewer) return true;
     }
     return false;
 }
@@ -368,21 +350,49 @@ void Solver::printGraph() {
     Vertex<DataNode> *sourceVertex = this->graph.findVertex(this->source);
     for (Edge<DataNode> *edge : sourceVertex->getAdj()) {
         submissionVertices.push_back(edge->getDest());
-        std::cout << "SOURCE -> " << edge->getDest()->getInfo().id << std::endl;
+        std::cout << "SOURCE -> sub: " << edge->getDest()->getInfo().id << std::endl;
     }
     for (Vertex<DataNode> *submissionVertex: submissionVertices) {
         for (Edge<DataNode> *edge : submissionVertex->getAdj()) {
             reviewerVertices.push_back(edge->getDest());
-            std::cout << submissionVertex->getInfo().id << " -> " << edge->getDest()->getInfo().id << std::endl;
+            std::cout << "sub: " << submissionVertex->getInfo().id << " -> rev: " << edge->getDest()->getInfo().id << std::endl;
         }
     }
     for (Vertex<DataNode> *reviewerVertex : reviewerVertices) {
         for (Edge<DataNode> *edge : reviewerVertex->getAdj()) {
-            std::cout << reviewerVertex->getInfo().id << " -> ";
+            std::cout << "rev: " << reviewerVertex->getInfo().id << " -> ";
             if (edge->getDest()->getInfo() == this->sink) {
                 std::cout << "SINK" << std::endl;
             } else std::cout << edge->getDest()->getInfo().id << std::endl;
         }
     }
     std::cout << "Graph finished!" << std::endl;
+}
+
+int Solver::getRiskAnalysis() {
+    return this->riskAnalysis;
+}
+
+int Solver::getMinReviewsPerSubmission() {
+    return this->minReviewsPerSubmission;
+}
+
+int Solver::getSubmissionAmount() {
+    return this->submissions.size();
+}
+
+int Solver::getMaxReviewersPerSubmission() {
+    return this->maxReviewsPerReviewer;
+}
+
+ComputeMode Solver::getComputeMode() {
+    return this->computeMode;
+}
+
+std::vector<DataNode> Solver::getSubmissions() {
+    return this->submissions;
+}
+
+std::vector<DataNode> Solver::getReviewers() {
+    return this->reviewers;
 }

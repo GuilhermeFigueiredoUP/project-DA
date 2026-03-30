@@ -14,6 +14,7 @@ set(SOURCES
     src/cli_parser.cpp
     src/solver.cpp
     src/edmonds_karp.cpp
+    src/risk_analysis.cpp
 )
 
 # Redirect binaries to bin/ folder

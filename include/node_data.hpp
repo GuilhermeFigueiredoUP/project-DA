@@ -20,6 +20,7 @@ struct DataNode {
 
     bool operator==(DataNode other) {
         if(id != other.id) return false;
+        if(type != other.type) return false;
         return true;
     }
     };
