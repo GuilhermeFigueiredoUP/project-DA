@@ -159,9 +159,30 @@ int Solver::generateOutput() {
     }
 
     //write results
-    //1. missing reviewers
+    //1. submission matches
+    std::sort(matches.begin(), matches.end(), [](MatchRecord &one, MatchRecord &two){
+        if (one.subId == two.subId) return one.revId <= two.revId;
+        else return one.subId <= two.subId;
+    });
+    outFile << "#SubmissionId,ReviewerId,Match\n";
+    for (MatchRecord &match : matches) {
+        outFile << match.subId << ", " << match.revId << ", " << match.domain << "\n";
+    }
+
+    //2. reviewer matches
+    std::sort(matches.begin(), matches.end(), [](MatchRecord &one, MatchRecord &two){
+        if (one.revId == two.revId) return one.subId <= two.subId;
+        else return one.revId<= two.revId;
+    });
+    outFile << "#ReviewerId,SubmissionId,Match\n";
+    for (MatchRecord &match : matches) {
+        outFile << match.revId << ", " << match.subId << ", " << match.domain << "\n";
+    }
+    outFile << "#Total: " << matches.size() << "\n";
+    
+    //3. missing reviewers
     if (!missingReviews.empty()) {
-        outFile << "#SubmissionId, Domain, MissingReviews\n";
+        outFile << "#SubmissionId,Domain,MissingReviews\n";
         for (DataNode &subNode : missingReviews) {
             auto vertex = this->graph.findVertex(subNode);
             int currentReviewsAssigned = 0;
