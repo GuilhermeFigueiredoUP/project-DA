@@ -10,4 +10,4 @@
 /// @param params referenece to the Parameters object
 /// @param ctrl reference to the Control object
 /// @param outName name of the file where the risk analysis results will be appended
-std::vector<int> risk_analysis (Solver *solver, std::string filePath);
+std::vector<int> risk_analysis (Solver *solver);

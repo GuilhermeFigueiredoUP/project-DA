@@ -194,7 +194,7 @@ int Solver::generateOutput() {
     //4. Risk Analysis
     if (this->riskAnalysis == 1) {
         outFile << "#Risk Analysis: 1\n"; 
-        std::vector<int> offenders = risk_analysis(this, this->outputFilePath);
+        std::vector<int> offenders = risk_analysis(this);
         if (!offenders.empty()) {
             outFile << offenders[0];
             for (int i = 1; i < offenders.size(); i++) {
