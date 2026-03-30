@@ -53,20 +53,6 @@ int Solver::computeAssignment() {
     int ret = computeEdmondsKarp(this->graph, this->source, this->sink);
     std::cout << "[DEBUG] computed edmonds karp" << std::endl;
     if (ret != 0) return ret;
-    switch(this->computeMode) {
-        case ALL:
-            buildGraphEdges(SECONDARY_REVIEWER_EXPERTISE | SECONDARY_SUBMISSION_DOMAIN | PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN);
-            ret = computeEdmondsKarp(this->graph, this->source, this->sink);
-            if (ret != 0) return ret;
-            break;
-        case SUBMISSION_SECONDARY:
-            buildGraphEdges(PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN | SECONDARY_SUBMISSION_DOMAIN);
-            ret = computeEdmondsKarp(this->graph, this->source, this->sink);
-            if (ret != 0) return ret;
-            break;
-        default:
-            break;
-    }
     return 0;
 }
 
@@ -192,7 +178,7 @@ int Solver::generateOutput() {
         }
     }
     //4. Risk Analysis
-    if (this->riskAnalysis == 1) {
+    if (this->riskAnalysis == 1 && missingReviews.empty()) {
         outFile << "#Risk Analysis: 1\n"; 
         std::vector<int> offenders = risk_analysis(this);
         if (!offenders.empty()) {
