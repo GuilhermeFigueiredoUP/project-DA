@@ -130,7 +130,7 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
         }
 
         else if (current_section == "parameters") {
-            std::string key,value;
+            std::string key, value;
             getline(ss, key, ','); key = remove_espacos(key);
             getline(ss, value, ','); value = remove_espacos(value);
             

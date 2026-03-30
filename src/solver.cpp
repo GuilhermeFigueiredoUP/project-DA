@@ -12,7 +12,7 @@ int Solver::processInput() {
     return 1;
 }
 
-// utilises the values in the project description example for development purposes
+// utilises the values in the project description example, for development purposes
 void Solver::processDummyInput() {
     this->parameterFlags = 0x00 | PRIMARY_REVIEWER_EXPERTISE 
         | PRIMARY_SUBMISSION_DOMAIN | SECONDARY_SUBMISSION_DOMAIN;
@@ -55,7 +55,7 @@ int Solver::computeAssignment() {
             if (ret != 0) return ret;
             break;
         default:
-        break;
+            break;
     }
     return 0;
 }
@@ -81,7 +81,7 @@ std::string Solver::getOutputFile() {
 
 // --- Parameter Configuration ---
 int Solver::generateOutput() {
-    // TODO: implement output file generation
+    if (this->computeMode != NO_REPORT) return 0;
     return 1;
 }
 

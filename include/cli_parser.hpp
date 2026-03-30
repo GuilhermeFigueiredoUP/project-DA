@@ -10,7 +10,7 @@
 int parseArguments(int argc, char *argv[]);
 
 // parser for menu mode execution
-int parseInput(std::string inputFile, vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
+int parseInput(std::string inputFile, std::vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
 
 
 // --- helper methods ---
