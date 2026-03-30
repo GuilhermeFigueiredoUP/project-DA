@@ -85,7 +85,14 @@ std::string Solver::getOutputFile() {
     return this->outputFilePath;
 }
 
-// --- Parameter Configuration ---
+/**
+ * @brief Generates the final formatted CSV output file from the Max-Flow graph results.
+ * * This function iterates through the assignment graph, identifies successful matchings,
+ * where Flow > 0, calculates missing reviews for unmet minimums, and writes the
+ * formatted results to the specified output file.
+ * * @param filename The name or path of the CSV file to be created.
+ * @return int Returns 0 on success, or 1 if there was an error creating the file.
+ */
 int Solver::generateOutput() {
     //check output file path
     if (this->outputFilePath.empty()) {
