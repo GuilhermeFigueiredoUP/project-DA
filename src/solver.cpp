@@ -51,7 +51,17 @@ int Solver::computeAssignment() {
     std::cout << "[DEBUG] generated vertices" << std::endl;
     std::cout << "submission count: " << submissions.size() << std::endl;
     std::cout << "reveiewer count: " << reviewers.size() << std::endl;
-    buildGraphEdges(PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN);
+    switch (this->computeMode) {
+        case SUBMISSION_SECONDARY:
+            this->parameterFlags = PRIMARY_SUBMISSION_DOMAIN | SECONDARY_SUBMISSION_DOMAIN | PRIMARY_REVIEWER_EXPERTISE;
+            break;
+        case ALL:
+            this->parameterFlags = PRIMARY_SUBMISSION_DOMAIN | SECONDARY_SUBMISSION_DOMAIN | PRIMARY_REVIEWER_EXPERTISE | SECONDARY_REVIEWER_EXPERTISE;
+            break;
+        default:
+                this->parameterFlags = PRIMARY_SUBMISSION_DOMAIN | PRIMARY_REVIEWER_EXPERTISE;
+    }
+    buildGraphEdges(this->parameterFlags);
     std::cout << "[DEBUG] generated edges" << std::endl;
     printGraph(); // DEBUG purposes
     int ret = computeEdmondsKarp(this->graph, this->source, this->sink);
@@ -182,17 +192,20 @@ int Solver::generateOutput() {
         }
     }
     //4. Risk Analysis
-    if (this->riskAnalysis == 1 && missingReviews.empty()) {
+    if (this->riskAnalysis == 1) {
         outFile << "#Risk Analysis: 1\n"; 
-        std::vector<int> offenders = risk_analysis(this);
-        if (!offenders.empty()) {
-            outFile << offenders[0];
-            for (int i = 1; i < offenders.size(); i++) {
-                outFile << ", " << offenders[i];
+        if (missingReviews.empty()) {
+            std::vector<int> offenders = risk_analysis(this);
+            if (!offenders.empty()) {
+                outFile << offenders[0];
+                for (int i = 1; i < offenders.size(); i++) {
+                    outFile << ", " << offenders[i];
+                }
+                outFile << "\n";
             }
-            outFile << "\n";
         }
     }
+    
     outFile.close();
     return 0;
 }
