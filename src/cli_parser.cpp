@@ -35,7 +35,9 @@ int parseArguments(int argc, char *argv[], Solver &solver) {
     if (status != 0) {
         return -1;
     }
-    
+
+    solver.computeAssignment();
+    solver.generateOutput();
 
     return 0;
 }
