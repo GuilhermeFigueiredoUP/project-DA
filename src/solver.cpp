@@ -48,8 +48,14 @@ void Solver::processDummyInput() {
 
 int Solver::computeAssignment() {
     this->generateVertices();
+    std::cout << "[DEBUG] generated vertices" << std::endl;
+    std::cout << "submission count: " << submissions.size() << std::endl;
+    std::cout << "reveiewer count: " << reviewers.size() << std::endl;
     buildGraphEdges(PRIMARY_REVIEWER_EXPERTISE | PRIMARY_SUBMISSION_DOMAIN);
+    std::cout << "[DEBUG] generated edges" << std::endl;
+    printGraph(); // DEBUG purposes
     int ret = computeEdmondsKarp(this->graph, this->source, this->sink);
+    std::cout << "[DEBUG] computed edmonds karp" << std::endl;
     if (ret != 0) return ret;
     switch(this->computeMode) {
         case ALL:
@@ -119,18 +125,20 @@ int Solver::generateOutput() {
 
     //traverse graph and extract assignments (flow > 0)
     for (DataNode &subNode : this->submissions) {
-        auto vertex = this->graph.findVertex(subNode);
-        if (!vertex) continue;
+        Vertex<DataNode> *vertex = this->graph.findVertex(subNode);
+        if (vertex == nullptr) continue;
 
         int currentReviewsAssigned = 0;
 
         //check edges leaving the submission
         for (auto edge : vertex->getAdj()) {
             DataNode destNode = edge->getDest()->getInfo();
+            std::cout << "checking flow between " << subNode.id << " - "  << destNode.id << std::endl;
 
             //set the match
-            if (destNode.type == REVIEWER && edge->getFlow() > 0) {
+            if (edge->getFlow() > 0) {
                 currentReviewsAssigned += edge->getFlow();
+                std::cout << "found flow between: " << subNode.id << " - " << destNode.id << std::endl;
 
                 //check domain that caused the match
                 int matchedDomain = subNode.primaryDomain;
@@ -234,11 +242,14 @@ void Solver::generateVertices() {
     this->graph.addVertex(this->source);
     this->graph.addVertex(this->sink);
     for (DataNode &node : this->submissions) {
+        std::cout << "adding submission with id: " << node.id << std::endl;
         this->graph.addVertex(node);
         this->graph.addEdge(this->source, node, this->minReviewsPerSubmission);
     }
+
     for (DataNode &node : this->reviewers) {
         if (node.id == this ->skipReviewerId) continue; 
+        std::cout << "adding reviewer with id: " << node.id << std::endl;
         this->graph.addVertex(node);
         this->graph.addEdge(node, this->sink, maxReviewsPerReviewer);
     }
@@ -246,15 +257,49 @@ void Solver::generateVertices() {
 }
 
 void Solver::buildGraphEdges(uint8_t flags) {
+            std::cout << "PRIMARY SUBMISSION: " << (bool)(flags & PRIMARY_SUBMISSION_DOMAIN) << std::endl;
+            std::cout << "PRIMARY REVIEWER: " << (bool)(flags & PRIMARY_REVIEWER_EXPERTISE) << std::endl;
+            std::cout << "SECONDARY SUBMISSION: " << (bool)(flags & SECONDARY_SUBMISSION_DOMAIN) << std::endl;
+            std::cout << "SECONDARY REVEIWER: " << (bool)(flags & SECONDARY_REVIEWER_EXPERTISE) << std::endl;
     for (DataNode &submissionNode : this->submissions) {
         for (DataNode &reviewerNode : this->reviewers) {
+            std::cout << "analysing pair : " << submissionNode.id << " - " << submissionNode.primaryDomain << " " << submissionNode.secondaryDomain<< " <-> " << reviewerNode.id << " - " << reviewerNode.primaryDomain << " " << reviewerNode.secondaryDomain << " : ";
             
-            if (reviewerNode.id == this -> skipReviewerId) continue; // usado para o riskanalysis VER
-            if (edgeExists(submissionNode, reviewerNode)) continue;
-            if ((flags & PRIMARY_SUBMISSION_DOMAIN) || ((flags & SECONDARY_SUBMISSION_DOMAIN) && submissionNode.secondaryDomain != -1)) {
-                if (flags & PRIMARY_REVIEWER_EXPERTISE) this->graph.addEdge(submissionNode, reviewerNode, 1);
-                else if ((flags & SECONDARY_REVIEWER_EXPERTISE) && (reviewerNode.secondaryDomain != -1)) this->graph.addEdge(submissionNode, reviewerNode, 1);
+            if (reviewerNode.id == this -> skipReviewerId) {
+                std::cout << "ignored (riskanalysis)" << std::endl;
+                continue; // usado para o riskanalysis VER
             }
+            if (edgeExists(submissionNode, reviewerNode)) {
+                std::cout << "ignored (already exists)" << std::endl;
+                continue;
+            }
+            if (submissionNode.primaryDomain == reviewerNode.primaryDomain) {
+                std::cout << "match (primary -> primary)" << std::endl;
+                this->graph.addEdge(submissionNode, reviewerNode, 1);
+                continue;
+            }
+            if (SECONDARY_SUBMISSION_DOMAIN & flags) {
+                if (submissionNode.secondaryDomain == reviewerNode.primaryDomain) {
+                    std::cout << "match (secondary -> primary)" << std::endl;
+                    this->graph.addEdge(submissionNode, reviewerNode, 1);
+                    continue;
+                }
+            }
+            if (SECONDARY_REVIEWER_EXPERTISE & flags) {
+                if (submissionNode.primaryDomain == reviewerNode.secondaryDomain) {
+                    std::cout << "match (primary -> secondary)" << std::endl;
+                    this->graph.addEdge(submissionNode, reviewerNode, 1);
+                    continue;
+                }
+            }
+            if ((SECONDARY_REVIEWER_EXPERTISE & flags) && (SECONDARY_SUBMISSION_DOMAIN & flags)) {
+                if (submissionNode.secondaryDomain == reviewerNode.secondaryDomain) {
+                    std::cout << "match (secondary -> secondary)" << std::endl;
+                    this->graph.addEdge(submissionNode, reviewerNode, 1);
+                    continue;
+                }
+            }
+            std::cout << "ignored (no match)" << std::endl;
         }
     }
 }
@@ -268,7 +313,6 @@ bool Solver::edgeExists(DataNode submission, DataNode reviewer) {
     return false;
 }
 
-// baldi
 int Solver:: getTotalFlow(){
     double total=0;
     Vertex<DataNode>* sinkVert = graph.findVertex(this ->sink);
@@ -280,21 +324,44 @@ int Solver:: getTotalFlow(){
     return (int) total;
 }
 
-void Solver:: setSubmissions (const std::vector<DataNode>& allNodes){
-    this -> submissions.clear();
-    for (const auto&n: allNodes){
-        if (n.type == SUBMISSION) this -> submissions.push_back(n);
-    }
+void Solver:: setSubmissions (const std::vector<DataNode>& submissionNodes){
+    this->submissions.clear();
+    this->submissions = submissionNodes;
 }
 
 // alteração baldi - os reviewers e as submissions estavam a ser misturados
-void Solver :: setReviewers(const std::vector<DataNode>&allNodes){
-     this -> submissions.clear();
-    for (const auto&n: allNodes){
-        if (n.type == REVIEWER) this -> reviewers.push_back(n);
-    }
+void Solver :: setReviewers(const std::vector<DataNode>& reviewerNodes){
+    this->reviewers.clear();
+    this->reviewers = reviewerNodes;
 }
 
 void Solver:: setSkipReviewerId(int id){
     this ->skipReviewerId=id;
+}
+
+void Solver::printGraph() {
+    std::cout << "current Graph: " << std::endl;
+
+    std::vector<Vertex<DataNode> *> submissionVertices;
+    std::vector<Vertex<DataNode> *> reviewerVertices;
+    Vertex<DataNode> *sourceVertex = this->graph.findVertex(this->source);
+    for (Edge<DataNode> *edge : sourceVertex->getAdj()) {
+        submissionVertices.push_back(edge->getDest());
+        std::cout << "SOURCE -> " << edge->getDest()->getInfo().id << std::endl;
+    }
+    for (Vertex<DataNode> *submissionVertex: submissionVertices) {
+        for (Edge<DataNode> *edge : submissionVertex->getAdj()) {
+            reviewerVertices.push_back(edge->getDest());
+            std::cout << submissionVertex->getInfo().id << " -> " << edge->getDest()->getInfo().id << std::endl;
+        }
+    }
+    for (Vertex<DataNode> *reviewerVertex : reviewerVertices) {
+        for (Edge<DataNode> *edge : reviewerVertex->getAdj()) {
+            std::cout << reviewerVertex->getInfo().id << " -> ";
+            if (edge->getDest()->getInfo() == this->sink) {
+                std::cout << "SINK" << std::endl;
+            } else std::cout << edge->getDest()->getInfo().id << std::endl;
+        }
+    }
+    std::cout << "Graph finished!" << std::endl;
 }

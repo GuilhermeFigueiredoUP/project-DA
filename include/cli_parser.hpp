@@ -14,7 +14,7 @@
 /// @param params reference to a Parameters object
 /// @param ctrl reference to a Control object
 /// @return 0 on success and -1 if argument count is wrong/the flag is not "-b"/ files lack the ".csv" extension
-int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) ;
+int parseArguments(int argc, char *argv[], Solver &solver) ;
 
 /// @brief parses a .csv file into data nodes(submissions and reviwers ), parameters and control settings
 /// @param inputFile path to the input .csv file
@@ -22,7 +22,7 @@ int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Par
 /// @param params reference to the Parameters object
 /// @param ctrl reference to the Control object
 /// @return 0 if parsing was sucessfull, -1 if an error occured
-int parseInput(std::string inputFile, std::vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
+int parseInput(std::string inputFile, Solver &solver);
 
 // --- helper methods ---
 bool hasCsvExtension(const std::string &filename);

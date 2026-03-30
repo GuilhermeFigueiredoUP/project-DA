@@ -65,6 +65,7 @@ class Solver {
     
     void cleanGraph();
     bool edgeExists(DataNode submission, DataNode reviewer);
+    void printGraph();
 
     // file paths
     std::string inputFilePath;
@@ -78,8 +79,8 @@ class Solver {
     int maxReviewsPerReviewer;
 
     Graph<DataNode> graph;
-    DataNode source;
-    DataNode sink;
+    DataNode source = {SOURCE, -1, -1, -1, "", "", ""};
+    DataNode sink = {SINK, -2, -1, -1, "", "", ""};
     std::vector<DataNode> submissions;
     std::vector<DataNode> reviewers;
 

@@ -7,16 +7,15 @@
 
 int main(int argc, char *argv[]) {
     int ret;
-    std:: vector<DataNode> allNodes;
+    Solver solver;
     Parameters params;
     Control ctrl;
     std::string final_file;
     if (argc > 1) {
-        ret = parseArguments(argc, argv, allNodes, params, ctrl);
+        ret = parseArguments(argc, argv, solver);
         if (ret != 0) return ret;
         return 0;
     }
-    Solver solver;
 
     std::cout << "Welcome to DA2026_PRJ1_T16_G1's algorithm" << std::endl << "type -help for more information." << std::endl;
     std::string input;
@@ -33,7 +32,7 @@ int main(int argc, char *argv[]) {
             running = false;
         }
         else {
-            // Terminal_cmd(input, mySolver);
+            Terminal_cmd(input, mySolver);
         }
     }
     return 0;

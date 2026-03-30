@@ -6,9 +6,16 @@ int computeEdmondsKarp(Graph<DataNode> &graph, DataNode source, DataNode sink) {
     Vertex<DataNode> *sourceVertex = graph.findVertex(source);
     Vertex<DataNode> *sinkVertex = graph.findVertex(sink);
 
+    for (auto vertex : graph.getVertexSet()) {
+        for (auto edge: vertex->getAdj()) {
+            edge->setFlow(0);
+        }
+    }
+
     // While there is an augmenting path, augment the flow along the path
     while( findAugmentingPath(&graph, sourceVertex, sinkVertex) ) {
         double minResidual = findMinResidualAlongPath(sourceVertex, sinkVertex);
+        std::cout << "min Redisual flow: " << minResidual << std::endl;
         augmentFlowAlongPath(sourceVertex, sinkVertex, minResidual);
     }
 
@@ -22,6 +29,7 @@ int computeEdmondsKarp(Graph<DataNode> &graph, DataNode source, DataNode sink) {
 // Function to test the given vertex 'w' and visit it if conditions are met
 template <class T>
 void testAndVisit(std::queue< Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double residual) {
+    std::cout << "testing vertex " << w->getInfo().id << std::endl;
     // Check if the vertex 'w' is not visited and there is residual capacity
     if (! w->isVisited() && residual > 0) {
         // Mark 'w' as visited, set the path through which it was reached, and enqueue it
@@ -34,6 +42,7 @@ void testAndVisit(std::queue< Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double r
 // Function to find an augmenting path using Breadth-First Search
 template <class T>
 bool findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
+    std::cout << "looking for augmenting path" << std::endl;
     // Mark all vertices as not visited
     for(auto v : g->getVertexSet()) {
         v->setVisited(false);
@@ -68,9 +77,11 @@ bool findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
 template <class T>
 double findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
     double f = INF;
+    std::cout << "found augmenting path: " << std::endl << "path : ";
 
     // Traverse the augmenting path to find the minimum residual capacity
     for (auto v = t; v != s; ) {
+        std::cout << v->getInfo().id << " ";
         auto e = v->getPath();
         if (e->getDest() == v) {
             f = std::min(f, e->getWeight() - e->getFlow());
@@ -81,6 +92,7 @@ double findMinResidualAlongPath(Vertex<T> *s, Vertex<T> *t) {
             v = e->getDest();
         }
     }
+    std::cout << std::endl;
 
     // Return the minimum residual capacity
     return f;

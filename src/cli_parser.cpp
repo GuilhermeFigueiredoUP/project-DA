@@ -24,11 +24,9 @@ bool hasCsvExtension(const std::string &filename) {
 /// @brief parses execution arguments if any are provided
 /// @param argc the amount of execution arguments passed
 /// @param argv a pointer to the execution arguments themselves
-/// @param allNodes 
-/// @param params 
-/// @param ctrl 
+/// @param solver a reference to the solver whose internal state is updated upon receiving input
 /// @return returns an execution code, 0 for sucess otherwise failure
-int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) {
+int parseArguments(int argc, char *argv[], Solver &solver) {
     // check argument count and batch mode flag
     if (argc != 4 || strcmp(argv[1], "-b") != 0) {
         std::cerr << "Correct usage: program -b input.csv output.csv" << std::endl;
@@ -43,7 +41,7 @@ int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Par
         std::cerr << "Error: files must have .csv extension\n";
         return -1;
     }
-    int status = parseInput(inputFile,allNodes,params,ctrl);
+    int status = parseInput(inputFile, solver);
     if (status != 0) {
         return -1;
     }
@@ -75,7 +73,7 @@ std::string remove_aspas(const std::string &s){
     return result; // se p qlq motivo n tiver aspas
 }
 
-int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameters &params, Control&ctrl) {
+int parseInput(std::string inputFile, Solver &solver) {
     std::ifstream file(inputFile);
     if (!file.is_open()){
         std::cerr <<"Error: not possible to open file "<<inputFile<<std::endl;
@@ -84,6 +82,9 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
     
     std::string current_section = "";
     std::string line;
+    std::vector<DataNode> submissionNodes;
+    std::vector<DataNode> reviewerNodes;
+    uint8_t parameterFlags = 0x00;
     
 
     while (getline(file, line)) {
@@ -118,8 +119,9 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
                 std::string f = remove_espacos(field);
                 if (!f.empty()) s.secondaryDomain=stoi(f);
             }
+            std::cout << "adding submission with id: " << s.id << " to reviewers" << std::endl;
 
-            allNodes.push_back(s);
+            submissionNodes.push_back(s);
 
         }
 
@@ -136,8 +138,9 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
                 std::string f = remove_espacos(field);
                 if (!f.empty()) r.secondaryDomain=stoi(f);
             }
+            std::cout << "adding reviewer with id: " << r.id << " to reviewers" << std::endl;
 
-            allNodes.push_back(r);
+            reviewerNodes.push_back(r);
 
         }
 
@@ -147,12 +150,12 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
             getline(ss, value, ','); value = remove_espacos(value);
             
             
-            if (key== "MinReviewsPerSubmission") params.MinReviewsPerSubmission=stoi(value);
-            else if (key== "MaxReviewsPerReviewer") params.MaxReviewsPerReviewer=stoi(value);
-            else if (key== "PrimaryReviewerExpertise") params.PrimaryReviewerExpertise=stoi(value);
-            else if (key== "SecondaryReviewerExpertise") params.SecondaryReviewerExpertise=stoi(value);
-            else if (key== "PrimarySubmissionDomain") params.PrimarySubmissionDomain=stoi(value);
-            else if (key== "SecondarySubmissionDomain") params.SecondarySubmissionDomain=stoi(value);
+            if (key== "MinReviewsPerSubmission") solver.updateMinReviewsPerSubmission(stoi(value));
+            else if (key== "MaxReviewsPerReviewer") solver.updateMaxReviewsPerReviewer(stoi(value));
+            else if (key== "PrimaryReviewerExpertise") parameterFlags = (stoi(value))? parameterFlags | PRIMARY_REVIEWER_EXPERTISE : parameterFlags;
+            else if (key== "SecondaryReviewerExpertise") parameterFlags = (stoi(value))? parameterFlags | SECONDARY_REVIEWER_EXPERTISE : parameterFlags;
+            else if (key== "PrimarySubmissionDomain") parameterFlags = (stoi(value))? parameterFlags | PRIMARY_SUBMISSION_DOMAIN : parameterFlags;
+            else if (key== "SecondarySubmissionDomain") parameterFlags = (stoi(value))? parameterFlags | SECONDARY_SUBMISSION_DOMAIN : parameterFlags;
             else std::cerr <<"Warning: unknown parameter: "<< key<< std::endl; 
 
         }
@@ -162,14 +165,18 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
             getline(ss, value, ','); value = remove_espacos(value);
             
         
-            if (key== "GenerateAssignments") ctrl.GenerateAssignments=stoi(value);
+            if (key== "GenerateAssignments") solver.updateComputeMode((ComputeMode)stoi(value));
             //std::cout << "[PARSER DEBUG] Li o valor: " << value << std::endl;
-            if (key== "RiskAnalysis") ctrl.RiskAnalysis=stoi(value);
-            if (key== "OutputFileName") ctrl.OutputFileName=remove_aspas(value);
+            if (key== "RiskAnalysis") solver.updateRiskAnalysis(stoi(value));
+            if (key== "OutputFileName") solver.updateOutputFile(remove_aspas(value));
             
             else std::cerr <<"Warning: unknown control parameter: "<< key<< std::endl; 
 
         }
+
+        solver.setReviewers(reviewerNodes);
+        solver.setSubmissions(submissionNodes);
+        solver.updateParameterFlags(parameterFlags);
     }
     return 0;
 }
@@ -206,7 +213,7 @@ int Terminal_cmd(std::string input, Solver& solver) {
     else if (input.find("load ") == 0) {
         std::string filename = input.substr(5);
         solver.updateInputFile(filename);
-        if (solver.processInput() == 0) {
+        if (parseInput(filename, solver) == 0) {
             std::cout << "File loaded successfully!\n";
         } else {
             std::cout << "Error loading file.\n";
