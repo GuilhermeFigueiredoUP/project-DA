@@ -22,7 +22,13 @@ bool hasCsvExtension(const std::string &filename) {
 }
 
 
-
+/// @brief parses execution arguments if any are provided
+/// @param argc the amount of execution arguments passed
+/// @param argv a pointer to the execution arguments themselves
+/// @param allNodes 
+/// @param params 
+/// @param ctrl 
+/// @return returns an execution code, 0 for sucess otherwise failure
 int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Parameters& params, Control& ctrl) {
     // check argument count and batch mode flag
     if (argc != 4 || strcmp(argv[1], "-b") != 0) {
