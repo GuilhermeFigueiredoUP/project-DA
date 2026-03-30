@@ -23,3 +23,9 @@ int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Par
 /// @param ctrl reference to the Control object
 /// @return 0 if parsing was sucessfull, -1 if an error occured
 int parseInput(std::string inputFile, std::vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
+
+// --- helper methods ---
+bool hasCsvExtension(const std::string &filename);
+
+// --- terminal commands ---
+int Terminal_cmd(std::string input, Solver& solver);
