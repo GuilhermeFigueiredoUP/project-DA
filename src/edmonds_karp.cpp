@@ -1,3 +1,6 @@
+/// @file edmonds_karp.cpp
+/// @brief Implements the Edmonds-Karp algorithm for computing maximum flow in a graph, along with related helper functions for finding augmenting paths and updating flow values. This implementation uses a breadth-first search (BFS) approach to find augmenting paths and updates the flow along those paths until no more augmenting paths can be found. The main function, edmondsKarp, initializes the flow and repeatedly calls the helper functions to compute the maximum flow from a specified source to a target vertex in the graph.
+
 #include "../include/edmonds_karp.hpp"
 #include "../data_structures/Graph.h"
 

@@ -1,0 +1,71 @@
+\doxysection{Data\+Node Struct Reference}
+\hypertarget{struct_data_node}{}\label{struct_data_node}\index{DataNode@{DataNode}}
+
+
+Struct to represent a data node in the graph, which can be a submission, reviewer, source, or sink.  
+
+
+
+
+{\ttfamily \+\#include $<$node\+\_\+data.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_data_node_a6ce11c04c44fdc1989cb276ac240fd0b}\label{struct_data_node_a6ce11c04c44fdc1989cb276ac240fd0b} 
+bool {\bfseries operator==} (\doxymbox{\hyperlink{struct_data_node}{Data\+Node}} other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_data_node_a024f0bca126169131adb79e1c9127a4e}\label{struct_data_node_a024f0bca126169131adb79e1c9127a4e} 
+Data\+Type {\bfseries type}
+\item 
+\Hypertarget{struct_data_node_aad44dd75845df0c2b951565f2eb6a62a}\label{struct_data_node_aad44dd75845df0c2b951565f2eb6a62a} 
+int {\bfseries id}
+\item 
+\Hypertarget{struct_data_node_ad59c9320eef4aa47aff29efb6fa1958a}\label{struct_data_node_ad59c9320eef4aa47aff29efb6fa1958a} 
+int {\bfseries primary\+Domain}
+\item 
+\Hypertarget{struct_data_node_ae638fbd2062e7deec7737520459fe7cd}\label{struct_data_node_ae638fbd2062e7deec7737520459fe7cd} 
+int {\bfseries secondary\+Domain}
+\item 
+\Hypertarget{struct_data_node_a49386b6855241197120405f3f089c823}\label{struct_data_node_a49386b6855241197120405f3f089c823} 
+std::\+string {\bfseries email}
+\item 
+\Hypertarget{struct_data_node_a6f79883f5c7970a933164c248cc66016}\label{struct_data_node_a6f79883f5c7970a933164c248cc66016} 
+std::\+string {\bfseries name\+Title}
+\item 
+\Hypertarget{struct_data_node_afbc04fa05a5aac3e1efa4f3cfe71b59f}\label{struct_data_node_afbc04fa05a5aac3e1efa4f3cfe71b59f} 
+std::\+string {\bfseries authors}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to represent a data node in the graph, which can be a submission, reviewer, source, or sink. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The type of the data node (submission, reviewer, source, sink) \\
+\hline
+{\em id} & The unique identifier for the data node \\
+\hline
+{\em primary\+Domain} & The primary domain associated with the data node (for submissions and reviewers) \\
+\hline
+{\em secondary\+Domain} & The secondary domain associated with the data node (for submissions and reviewers) \\
+\hline
+{\em email} & The email address associated with the data node (for reviewers) \\
+\hline
+{\em name\+Title} & The name or title associated with the data node (for submissions and reviewers) \\
+\hline
+{\em authors} & The authors associated with the data node (for submissions) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The equality operator is defined to compare data nodes based on their type and id, ignoring other fields 
+\end{DoxyNote}
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+include/\+node\+\_\+data.\+hpp\end{DoxyCompactItemize}

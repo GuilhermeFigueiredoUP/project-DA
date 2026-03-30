@@ -1,0 +1,448 @@
+\doxysection{Solver Class Reference}
+\hypertarget{class_solver}{}\label{class_solver}\index{Solver@{Solver}}
+
+
+Class to represent the solver for the assignment problem, which manages the graph representation of submissions and reviewers, parameters, and computation of assignments.  
+
+
+
+
+{\ttfamily \+\#include $<$solver.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{class_solver_ae86122e03a375e0e68f678e6b715dd14}{generate\+Output}} ()
+\begin{DoxyCompactList}\small\item\em Generates the output file with the results of the assignment computation, including the matched pairs of submissions and reviewers, any missing reviews for submissions that did not meet the minimum requirements, and optionally a risk analysis of the generated assignments. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_a6670c8184eac901ef6b1afeed393e849}{compute\+Assignment}} ()
+\begin{DoxyCompactList}\small\item\em Computes the assignment of reviewers to submissions based on the current graph, parameters, and compute mode. This method builds the edges of the graph according to the specified parameter flags, computes the maximum flow using the Edmonds-\/\+Karp algorithm, and returns the result of the computation. \end{DoxyCompactList}\item 
+\Hypertarget{class_solver_a52807af904fbec2630e41c5fe08585f5}\label{class_solver_a52807af904fbec2630e41c5fe08585f5} 
+void {\bfseries process\+Dummy\+Input} ()
+\begin{DoxyCompactList}\small\item\em A method for testing and development purposes that populates the solver with hardcoded data for submissions and reviewers. This method can be used to quickly set up a test scenario without needing to parse input files, allowing for faster iteration during development. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a7cf925cda33bf0d076cc69c7a68eb43d}{update\+Input\+File}} (std::\+string file\+Path)
+\begin{DoxyCompactList}\small\item\em Updates the input file path for the solver, which is used to read the data for submissions and reviewers. This method allows dynamic configuration of the input source, enabling the solver to be used with different datasets without needing to modify the code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a95fbeea2e49f2c14b494f5585716aa6d}{update\+Output\+File}} (std::\+string file\+Path)
+\begin{DoxyCompactList}\small\item\em Updates the output file path for the solver, which is used to write the results of the assignment computation. This method allows dynamic configuration of the output destination, enabling the solver to save results to different locations or files without needing to modify the code. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_solver_afab1f57ba113a4b9874369ded2be5d62}{get\+Input\+File}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current input file path for the solver. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_solver_ae683f8aad5239570f80e409e6b42eb26}{get\+Output\+File}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current output file path for the solver. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a2e70a89af7f98a546b5681cc0ca24c88}{update\+Parameter\+Flags}} (uint8\+\_\+t flags)
+\begin{DoxyCompactList}\small\item\em Updates the parameter flags for the solver, which determine the criteria used for matching submissions and reviewers. The flags are represented as a bitmask, where each bit corresponds to a specific parameter (e.\+g., primary reviewer expertise, secondary submission domain). This method allows dynamic configuration of the matching criteria, enabling the solver to adapt to different requirements without needing to modify the code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a3ddd703a04d8005ecbb7b8ba2cdfa6a5}{update\+Risk\+Analysis}} (int count)
+\begin{DoxyCompactList}\small\item\em Updates the risk analysis setting for the solver, which determines whether to perform a risk analysis on the generated assignments. This method allows dynamic configuration of the risk analysis feature, enabling users to choose whether to include this analysis in the output results based on their needs. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_ac99c349fb1e3fea92eca996842747273}{update\+Compute\+Mode}} (Compute\+Mode mode)
+\begin{DoxyCompactList}\small\item\em Updates the computation mode for the solver, which determines how the assignment computation is performed. This method allows dynamic configuration of the computation approach, enabling the solver to adapt to different scenarios without needing to modify the code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a77aa861d8b0ba50b4f857e27993f2c1e}{update\+Min\+Reviews\+Per\+Submission}} (int count)
+\begin{DoxyCompactList}\small\item\em Updates the minimum number of reviews required per submission. This method allows dynamic configuration of the review requirements, enabling users to set different thresholds for the number of reviews needed for each submission without needing to modify the code. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a876b2f0fc1ff72e57fb3588802218de6}{update\+Max\+Reviews\+Per\+Reviewer}} (int count)
+\begin{DoxyCompactList}\small\item\em Updates the maximum number of reviews allowed per reviewer. This method allows dynamic configuration of the review limits, enabling users to set different thresholds for the number of reviews each reviewer can handle without needing to modify the code. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_a2d421fbbe8ae4c526907ce581bf402bd}{get\+Risk\+Analysis}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current risk analysis setting for the solver. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_a5762a4f51188789731303615a0ce5f95}{get\+Min\+Reviews\+Per\+Submission}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current minimum number of reviews required per submission. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_a4e1b34ec409a080430fb58e7a6cf2d3e}{get\+Max\+Reviewers\+Per\+Submission}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current maximum number of reviewers allowed per submission. \end{DoxyCompactList}\item 
+Compute\+Mode \doxymbox{\hyperlink{class_solver_ae33ec8401de8b9b338e6d8422f7b2fd1}{get\+Compute\+Mode}} ()
+\begin{DoxyCompactList}\small\item\em Returns the current computation mode for the solver. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_a582d175b9a2a62845cb7a0d1625d5e2b}{get\+Submission\+Amount}} ()
+\begin{DoxyCompactList}\small\item\em Returns the total number of submissions. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \doxymbox{\hyperlink{class_solver_aa7d8484bae0b25d855700d27eeb28456}{get\+Submissions}} ()
+\begin{DoxyCompactList}\small\item\em Returns the list of all submissions. \end{DoxyCompactList}\item 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \doxymbox{\hyperlink{class_solver_ab82b7951e475f10fc5632c361f57e6b4}{get\+Reviewers}} ()
+\begin{DoxyCompactList}\small\item\em Returns the list of all reviewers. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a2f32302f8ef159e48c9356debdf63768}{set\+Submissions}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&submission\+Nodes)
+\begin{DoxyCompactList}\small\item\em Sets the list of all submissions. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a31f1d33449b54f1ce1dafb883fe76bca}{set\+Reviewers}} (const std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&reviewer\+Nodes)
+\begin{DoxyCompactList}\small\item\em Sets the list of all reviewers. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_solver_ac2062d3ffe19e16557601a2c11a56722}{get\+Total\+Flow}} ()
+\begin{DoxyCompactList}\small\item\em Returns the total flow in the graph. This method calculates the total flow from the source to the sink in the graph, which represents the number of successful matches between submissions and reviewers based on the current graph configuration and parameters. \end{DoxyCompactList}\item 
+\Hypertarget{class_solver_a884f7cfaabfc7510c984e90c1d1131c4}\label{class_solver_a884f7cfaabfc7510c984e90c1d1131c4} 
+void {\bfseries generate\+Vertices} ()
+\begin{DoxyCompactList}\small\item\em Generates the vertices in the graph for the source, sink, submissions, and reviewers. This method populates the graph with the appropriate vertices based on the current list of submissions and reviewers, as well as the source and sink nodes. It is typically called before building the edges of the graph to ensure that all necessary vertices are present for the assignment computation. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_solver_a8bb3578d14c683759b92ec8603bc9774}{set\+Skip\+Reviewer\+Id}} (int id)
+\begin{DoxyCompactList}\small\item\em Sets the ID of the reviewer to be skipped in the assignment process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_solver_aaba874609a7ff8b2a4c021a00072aead}\label{class_solver_aaba874609a7ff8b2a4c021a00072aead} 
+int {\bfseries skip\+Reviewer\+Id} = -\/1
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to represent the solver for the assignment problem, which manages the graph representation of submissions and reviewers, parameters, and computation of assignments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph representation of submissions, reviewers, source, and sink \\
+\hline
+{\em source} & The source vertex in the graph \\
+\hline
+{\em sink} & The sink vertex in the graph \\
+\hline
+{\em submissions} & A vector of \doxylink{struct_data_node}{Data\+Node} objects representing the submissions \\
+\hline
+{\em reviewers} & A vector of \doxylink{struct_data_node}{Data\+Node} objects representing the reviewers \\
+\hline
+{\em parameter\+Flags} & A bitmask representing the parameters for matching criteria \\
+\hline
+{\em compute\+Mode} & The compute mode for the solver, determining the criteria used for matching \\
+\hline
+{\em risk\+Analysis} & Flag indicating whether to perform risk analysis on the generated assignments \\
+\hline
+{\em min\+Reviews\+Per\+Submission} & The minimum number of reviews required per submission \\
+\hline
+{\em max\+Reviews\+Per\+Reviewer} & The maximum number of reviews allowed per reviewer \\
+\hline
+{\em input\+File\+Path} & The file path for the input data \\
+\hline
+{\em output\+File\+Path} & The file path for the output results \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The class provides methods for updating parameters, generating the graph, computing assignments using the Edmonds-\/\+Karp algorithm, and generating output files with the results 
+\end{DoxyNote}
+
+
+\label{doc-func-members}
+\Hypertarget{class_solver_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_solver_a6670c8184eac901ef6b1afeed393e849}\index{Solver@{Solver}!computeAssignment@{computeAssignment}}
+\index{computeAssignment@{computeAssignment}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{computeAssignment()}{computeAssignment()}}
+{\footnotesize\ttfamily \label{class_solver_a6670c8184eac901ef6b1afeed393e849} 
+int Solver::\+compute\+Assignment (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Computes the assignment of reviewers to submissions based on the current graph, parameters, and compute mode. This method builds the edges of the graph according to the specified parameter flags, computes the maximum flow using the Edmonds-\/\+Karp algorithm, and returns the result of the computation. 
+
+\begin{DoxyReturn}{Returns}
+The result of the assignment computation, where 0 indicates success and any non-\/zero value indicates an error or failure in the computation process. 
+\end{DoxyReturn}
+\Hypertarget{class_solver_ae86122e03a375e0e68f678e6b715dd14}\index{Solver@{Solver}!generateOutput@{generateOutput}}
+\index{generateOutput@{generateOutput}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{generateOutput()}{generateOutput()}}
+{\footnotesize\ttfamily \label{class_solver_ae86122e03a375e0e68f678e6b715dd14} 
+int Solver::\+generate\+Output (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Generates the output file with the results of the assignment computation, including the matched pairs of submissions and reviewers, any missing reviews for submissions that did not meet the minimum requirements, and optionally a risk analysis of the generated assignments. 
+
+Generates the final formatted CSV output file from the Max-\/\+Flow graph results.
+
+\begin{DoxyReturn}{Returns}
+The result of the output generation process, where 0 indicates success and -\/1 indicates an error (such as an invalid output file path or failure to open the file).
+\end{DoxyReturn}
+
+\begin{DoxyItemize}
+\item This function iterates through the assignment graph, identifies successful matchings, where Flow \texorpdfstring{$>$}{>} 0, calculates missing reviews for unmet minimums, and writes the formatted results to the specified output file.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name or path of the CSV file to be created. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Returns 0 on success, or 1 if there was an error creating the file. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}\Hypertarget{class_solver_ae33ec8401de8b9b338e6d8422f7b2fd1}\index{Solver@{Solver}!getComputeMode@{getComputeMode}}
+\index{getComputeMode@{getComputeMode}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getComputeMode()}{getComputeMode()}}
+{\footnotesize\ttfamily \label{class_solver_ae33ec8401de8b9b338e6d8422f7b2fd1} 
+Compute\+Mode Solver::\+get\+Compute\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current computation mode for the solver. 
+
+\begin{DoxyReturn}{Returns}
+The computation mode for the solver, represented as an enum value (e.\+g., NO\+\_\+\+REPORT, PRIMARY\+\_\+\+ONLY, SUBMISSION\+\_\+\+SECONDARY, ALL) 
+\end{DoxyReturn}
+\Hypertarget{class_solver_afab1f57ba113a4b9874369ded2be5d62}\index{Solver@{Solver}!getInputFile@{getInputFile}}
+\index{getInputFile@{getInputFile}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getInputFile()}{getInputFile()}}
+{\footnotesize\ttfamily \label{class_solver_afab1f57ba113a4b9874369ded2be5d62} 
+std::\+string Solver::\+get\+Input\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current input file path for the solver. 
+
+\begin{DoxyReturn}{Returns}
+The file path for the input data 
+\end{DoxyReturn}
+\Hypertarget{class_solver_a4e1b34ec409a080430fb58e7a6cf2d3e}\index{Solver@{Solver}!getMaxReviewersPerSubmission@{getMaxReviewersPerSubmission}}
+\index{getMaxReviewersPerSubmission@{getMaxReviewersPerSubmission}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getMaxReviewersPerSubmission()}{getMaxReviewersPerSubmission()}}
+{\footnotesize\ttfamily \label{class_solver_a4e1b34ec409a080430fb58e7a6cf2d3e} 
+int Solver::\+get\+Max\+Reviewers\+Per\+Submission (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current maximum number of reviewers allowed per submission. 
+
+\begin{DoxyReturn}{Returns}
+The maximum number of reviewers allowed per submission 
+\end{DoxyReturn}
+\Hypertarget{class_solver_a5762a4f51188789731303615a0ce5f95}\index{Solver@{Solver}!getMinReviewsPerSubmission@{getMinReviewsPerSubmission}}
+\index{getMinReviewsPerSubmission@{getMinReviewsPerSubmission}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getMinReviewsPerSubmission()}{getMinReviewsPerSubmission()}}
+{\footnotesize\ttfamily \label{class_solver_a5762a4f51188789731303615a0ce5f95} 
+int Solver::\+get\+Min\+Reviews\+Per\+Submission (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current minimum number of reviews required per submission. 
+
+\begin{DoxyReturn}{Returns}
+The minimum number of reviews required per submission 
+\end{DoxyReturn}
+\Hypertarget{class_solver_ae683f8aad5239570f80e409e6b42eb26}\index{Solver@{Solver}!getOutputFile@{getOutputFile}}
+\index{getOutputFile@{getOutputFile}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getOutputFile()}{getOutputFile()}}
+{\footnotesize\ttfamily \label{class_solver_ae683f8aad5239570f80e409e6b42eb26} 
+std::\+string Solver::\+get\+Output\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current output file path for the solver. 
+
+\begin{DoxyReturn}{Returns}
+The file path for the output results 
+\end{DoxyReturn}
+\Hypertarget{class_solver_ab82b7951e475f10fc5632c361f57e6b4}\index{Solver@{Solver}!getReviewers@{getReviewers}}
+\index{getReviewers@{getReviewers}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getReviewers()}{getReviewers()}}
+{\footnotesize\ttfamily \label{class_solver_ab82b7951e475f10fc5632c361f57e6b4} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ Solver::\+get\+Reviewers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the list of all reviewers. 
+
+\begin{DoxyReturn}{Returns}
+A vector containing all reviewer nodes 
+\end{DoxyReturn}
+\Hypertarget{class_solver_a2d421fbbe8ae4c526907ce581bf402bd}\index{Solver@{Solver}!getRiskAnalysis@{getRiskAnalysis}}
+\index{getRiskAnalysis@{getRiskAnalysis}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getRiskAnalysis()}{getRiskAnalysis()}}
+{\footnotesize\ttfamily \label{class_solver_a2d421fbbe8ae4c526907ce581bf402bd} 
+int Solver::\+get\+Risk\+Analysis (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the current risk analysis setting for the solver. 
+
+\begin{DoxyReturn}{Returns}
+The number of risk analyses to perform as configured in the project description (0 
+\end{DoxyReturn}
+\Hypertarget{class_solver_a582d175b9a2a62845cb7a0d1625d5e2b}\index{Solver@{Solver}!getSubmissionAmount@{getSubmissionAmount}}
+\index{getSubmissionAmount@{getSubmissionAmount}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getSubmissionAmount()}{getSubmissionAmount()}}
+{\footnotesize\ttfamily \label{class_solver_a582d175b9a2a62845cb7a0d1625d5e2b} 
+int Solver::\+get\+Submission\+Amount (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the total number of submissions. 
+
+\begin{DoxyReturn}{Returns}
+The total number of submissions 
+\end{DoxyReturn}
+\Hypertarget{class_solver_aa7d8484bae0b25d855700d27eeb28456}\index{Solver@{Solver}!getSubmissions@{getSubmissions}}
+\index{getSubmissions@{getSubmissions}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getSubmissions()}{getSubmissions()}}
+{\footnotesize\ttfamily \label{class_solver_aa7d8484bae0b25d855700d27eeb28456} 
+std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ Solver::\+get\+Submissions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the list of all submissions. 
+
+\begin{DoxyReturn}{Returns}
+A vector containing all submission nodes 
+\end{DoxyReturn}
+\Hypertarget{class_solver_ac2062d3ffe19e16557601a2c11a56722}\index{Solver@{Solver}!getTotalFlow@{getTotalFlow}}
+\index{getTotalFlow@{getTotalFlow}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{getTotalFlow()}{getTotalFlow()}}
+{\footnotesize\ttfamily \label{class_solver_ac2062d3ffe19e16557601a2c11a56722} 
+int Solver::\+get\+Total\+Flow (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the total flow in the graph. This method calculates the total flow from the source to the sink in the graph, which represents the number of successful matches between submissions and reviewers based on the current graph configuration and parameters. 
+
+\begin{DoxyReturn}{Returns}
+The total flow in the graph 
+\end{DoxyReturn}
+\Hypertarget{class_solver_a31f1d33449b54f1ce1dafb883fe76bca}\index{Solver@{Solver}!setReviewers@{setReviewers}}
+\index{setReviewers@{setReviewers}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{setReviewers()}{setReviewers()}}
+{\footnotesize\ttfamily \label{class_solver_a31f1d33449b54f1ce1dafb883fe76bca} 
+void Solver::\+set\+Reviewers (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&}]{reviewer\+Nodes}{}\end{DoxyParamCaption})}
+
+
+
+Sets the list of all reviewers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reviewer\+Nodes} & A vector containing the reviewer nodes to be set in the solver \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a8bb3578d14c683759b92ec8603bc9774}\index{Solver@{Solver}!setSkipReviewerId@{setSkipReviewerId}}
+\index{setSkipReviewerId@{setSkipReviewerId}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{setSkipReviewerId()}{setSkipReviewerId()}}
+{\footnotesize\ttfamily \label{class_solver_a8bb3578d14c683759b92ec8603bc9774} 
+void Solver::\+set\+Skip\+Reviewer\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Sets the ID of the reviewer to be skipped in the assignment process. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the reviewer to skip \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a2f32302f8ef159e48c9356debdf63768}\index{Solver@{Solver}!setSubmissions@{setSubmissions}}
+\index{setSubmissions@{setSubmissions}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{setSubmissions()}{setSubmissions()}}
+{\footnotesize\ttfamily \label{class_solver_a2f32302f8ef159e48c9356debdf63768} 
+void Solver::\+set\+Submissions (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&}]{submission\+Nodes}{}\end{DoxyParamCaption})}
+
+
+
+Sets the list of all submissions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em submission\+Nodes} & A vector containing the submission nodes to be set in the solver \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_ac99c349fb1e3fea92eca996842747273}\index{Solver@{Solver}!updateComputeMode@{updateComputeMode}}
+\index{updateComputeMode@{updateComputeMode}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateComputeMode()}{updateComputeMode()}}
+{\footnotesize\ttfamily \label{class_solver_ac99c349fb1e3fea92eca996842747273} 
+void Solver::\+update\+Compute\+Mode (\begin{DoxyParamCaption}\item[{Compute\+Mode}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Updates the computation mode for the solver, which determines how the assignment computation is performed. This method allows dynamic configuration of the computation approach, enabling the solver to adapt to different scenarios without needing to modify the code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The new computation mode for the solver, represented as an enum value (e.\+g., NO\+\_\+\+REPORT, PRIMARY\+\_\+\+ONLY, SUBMISSION\+\_\+\+SECONDARY, ALL)\\
+\hline
+\end{DoxyParams}
+The computation modes are defined as follows:\+
+\begin{DoxyItemize}
+\item NO\+\_\+\+REPORT:\+ The solver will compute the assignments without generating any report or output file
+\item PRIMARY\+\_\+\+ONLY:\+ The solver will compute the assignments considering only the primary expertise and domain of reviewers and submissions
+\item SUBMISSION\+\_\+\+SECONDARY:\+ The solver will compute the assignments considering the secondary domain of submissions in addition to the primary expertise and domain of reviewers and submissions
+\item ALL:\+ The solver will compute the assignments considering all criteria (primary and secondary expertise of reviewers, primary and secondary domain of submissions) 
+\end{DoxyItemize}\Hypertarget{class_solver_a7cf925cda33bf0d076cc69c7a68eb43d}\index{Solver@{Solver}!updateInputFile@{updateInputFile}}
+\index{updateInputFile@{updateInputFile}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateInputFile()}{updateInputFile()}}
+{\footnotesize\ttfamily \label{class_solver_a7cf925cda33bf0d076cc69c7a68eb43d} 
+void Solver::\+update\+Input\+File (\begin{DoxyParamCaption}\item[{std::\+string}]{file\+Path}{}\end{DoxyParamCaption})}
+
+
+
+Updates the input file path for the solver, which is used to read the data for submissions and reviewers. This method allows dynamic configuration of the input source, enabling the solver to be used with different datasets without needing to modify the code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & The new file path for the input data \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a876b2f0fc1ff72e57fb3588802218de6}\index{Solver@{Solver}!updateMaxReviewsPerReviewer@{updateMaxReviewsPerReviewer}}
+\index{updateMaxReviewsPerReviewer@{updateMaxReviewsPerReviewer}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateMaxReviewsPerReviewer()}{updateMaxReviewsPerReviewer()}}
+{\footnotesize\ttfamily \label{class_solver_a876b2f0fc1ff72e57fb3588802218de6} 
+void Solver::\+update\+Max\+Reviews\+Per\+Reviewer (\begin{DoxyParamCaption}\item[{int}]{count}{}\end{DoxyParamCaption})}
+
+
+
+Updates the maximum number of reviews allowed per reviewer. This method allows dynamic configuration of the review limits, enabling users to set different thresholds for the number of reviews each reviewer can handle without needing to modify the code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & The maximum number of reviews allowed per reviewer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a77aa861d8b0ba50b4f857e27993f2c1e}\index{Solver@{Solver}!updateMinReviewsPerSubmission@{updateMinReviewsPerSubmission}}
+\index{updateMinReviewsPerSubmission@{updateMinReviewsPerSubmission}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateMinReviewsPerSubmission()}{updateMinReviewsPerSubmission()}}
+{\footnotesize\ttfamily \label{class_solver_a77aa861d8b0ba50b4f857e27993f2c1e} 
+void Solver::\+update\+Min\+Reviews\+Per\+Submission (\begin{DoxyParamCaption}\item[{int}]{count}{}\end{DoxyParamCaption})}
+
+
+
+Updates the minimum number of reviews required per submission. This method allows dynamic configuration of the review requirements, enabling users to set different thresholds for the number of reviews needed for each submission without needing to modify the code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & The minimum number of reviews required per submission \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a95fbeea2e49f2c14b494f5585716aa6d}\index{Solver@{Solver}!updateOutputFile@{updateOutputFile}}
+\index{updateOutputFile@{updateOutputFile}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateOutputFile()}{updateOutputFile()}}
+{\footnotesize\ttfamily \label{class_solver_a95fbeea2e49f2c14b494f5585716aa6d} 
+void Solver::\+update\+Output\+File (\begin{DoxyParamCaption}\item[{std::\+string}]{file\+Path}{}\end{DoxyParamCaption})}
+
+
+
+Updates the output file path for the solver, which is used to write the results of the assignment computation. This method allows dynamic configuration of the output destination, enabling the solver to save results to different locations or files without needing to modify the code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & The new file path for the output results \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_solver_a2e70a89af7f98a546b5681cc0ca24c88}\index{Solver@{Solver}!updateParameterFlags@{updateParameterFlags}}
+\index{updateParameterFlags@{updateParameterFlags}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateParameterFlags()}{updateParameterFlags()}}
+{\footnotesize\ttfamily \label{class_solver_a2e70a89af7f98a546b5681cc0ca24c88} 
+void Solver::\+update\+Parameter\+Flags (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+
+
+Updates the parameter flags for the solver, which determine the criteria used for matching submissions and reviewers. The flags are represented as a bitmask, where each bit corresponds to a specific parameter (e.\+g., primary reviewer expertise, secondary submission domain). This method allows dynamic configuration of the matching criteria, enabling the solver to adapt to different requirements without needing to modify the code. 
+
+The parameter flags are defined as follows:\+
+\begin{DoxyItemize}
+\item PRIMARY\+\_\+\+REVIEWER\+\_\+\+EXPERTISE (bit 0):\+ If set, the primary expertise of the reviewer will be considered when matching with submissions.
+\item SECONDARY\+\_\+\+REVIEWER\+\_\+\+EXPERTISE (bit 1):\+ If set, the secondary expertise of the reviewer will be considered when matching with submissions.
+\item PRIMARY\+\_\+\+SUBMISSION\+\_\+\+DOMAIN (bit 2):\+ If set, the primary domain of the submission will be considered when matching with reviewers.
+\item SECONDARY\+\_\+\+SUBMISSION\+\_\+\+DOMAIN (bit 3):\+ If set, the secondary domain of the submission will be considered when matching with reviewers. 
+\begin{DoxyParams}{Parameters}
+{\em flags} & The new parameter flags as a bitmask \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\Hypertarget{class_solver_a3ddd703a04d8005ecbb7b8ba2cdfa6a5}\index{Solver@{Solver}!updateRiskAnalysis@{updateRiskAnalysis}}
+\index{updateRiskAnalysis@{updateRiskAnalysis}!Solver@{Solver}}
+\doxysubsubsection{\texorpdfstring{updateRiskAnalysis()}{updateRiskAnalysis()}}
+{\footnotesize\ttfamily \label{class_solver_a3ddd703a04d8005ecbb7b8ba2cdfa6a5} 
+void Solver::\+update\+Risk\+Analysis (\begin{DoxyParamCaption}\item[{int}]{count}{}\end{DoxyParamCaption})}
+
+
+
+Updates the risk analysis setting for the solver, which determines whether to perform a risk analysis on the generated assignments. This method allows dynamic configuration of the risk analysis feature, enabling users to choose whether to include this analysis in the output results based on their needs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & The number of risk analyses to perform as configured in the project description (0 for no analysis, 1 for basic analysis, etc.) \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+include/\+solver.\+hpp\item 
+src/\+\doxymbox{\hyperlink{solver_8cpp}{solver.\+cpp}}\end{DoxyCompactItemize}

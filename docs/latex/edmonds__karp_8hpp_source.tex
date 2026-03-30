@@ -1,0 +1,24 @@
+\doxysection{edmonds\+\_\+karp.\+hpp}
+\hypertarget{edmonds__karp_8hpp_source}{}\label{edmonds__karp_8hpp_source}\index{include/edmonds\_karp.hpp@{include/edmonds\_karp.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../data\_structures/Graph.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../include/node\_data.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{edmonds__karp_8cpp_a744ca39c6d46e7d31a894034c5a94ca1}{computeEdmondsKarp}}(Graph<DataNode>\ \&graph,\ \doxymbox{\hyperlink{struct_data_node}{DataNode}}\ source,\ \doxymbox{\hyperlink{struct_data_node}{DataNode}}\ sink);}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{edmonds__karp_8cpp_acb329d42a9a476d072878ef35a6a343c}{testAndVisit}}(std::queue<\ Vertex<T>*>\ \&q,\ Edge<T>\ *e,\ Vertex<T>\ *w,\ \textcolor{keywordtype}{double}\ residual);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{edmonds__karp_8cpp_a7ef59ca73ad539b2405ee93bb9e1b8de}{findAugmentingPath}}(Graph<T>\ *g,\ Vertex<T>\ *s,\ Vertex<T>\ *t);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{edmonds__karp_8cpp_ab38647bac4738e296aba7b1bc4744835}{findMinResidualAlongPath}}(Vertex<T>\ *s,\ Vertex<T>\ *t);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{edmonds__karp_8cpp_a9813dc412187df7cc322afea1283c22c}{augmentFlowAlongPath}}(Vertex<T>\ *s,\ Vertex<T>\ *t,\ \textcolor{keywordtype}{double}\ f);}
+
+\end{DoxyCode}

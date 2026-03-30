@@ -1,0 +1,47 @@
+\doxysection{node\+\_\+data.\+hpp}
+\hypertarget{node__data_8hpp_source}{}\label{node__data_8hpp_source}\index{include/node\_data.hpp@{include/node\_data.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum}\ DataType\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ SUBMISSION,}
+\DoxyCodeLine{00008\ \ \ \ \ REVIEWER,}
+\DoxyCodeLine{00009\ \ \ \ \ SOURCE,}
+\DoxyCodeLine{00010\ \ \ \ \ SINK}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_data_node}{DataNode}}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ DataType\ type;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ primaryDomain;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ secondaryDomain;}
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ email;}
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ nameTitle;}
+\DoxyCodeLine{00029\ \ \ \ \ std::string\ authors;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\doxymbox{\hyperlink{struct_data_node}{DataNode}}\ other)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}\ !=\ other.id)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(type\ !=\ other.type)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_parameters}{Parameters}}\{}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ MinReviewsPerSubmission;}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{int}\ MaxReviewsPerReviewer;}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{int}\ PrimaryReviewerExpertise;}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ SecondaryReviewerExpertise;}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ PrimarySubmissionDomain;}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{int}\ SecondarySubmissionDomain;}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_control}{Control}}\{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ GenerateAssignments;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ RiskAnalysis;}
+\DoxyCodeLine{00061\ \ \ \ \ std::string\ OutputFileName;}
+\DoxyCodeLine{00062\ \};}
+
+\end{DoxyCode}

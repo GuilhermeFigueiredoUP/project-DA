@@ -1,0 +1,55 @@
+\doxysection{src/\+risk\+\_\+analysis.cpp File Reference}
+\hypertarget{risk__analysis_8cpp}{}\label{risk__analysis_8cpp}\index{src/risk\_analysis.cpp@{src/risk\_analysis.cpp}}
+
+
+Implements the risk analysis functionality for the solver, which identifies reviewers whose removal would lead to a decrease in the maximum flow.  
+
+
+{\ttfamily \+\#include "{}../\+include/\+risk\+\_\+analysis.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include "{}../\+include/\+cli\+\_\+parser.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}../\+include/\+edmonds\+\_\+karp.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}../\+data\+\_\+structures/\+\+Graph.\+h"{}}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std::\+vector$<$ int $>$ \doxymbox{\hyperlink{risk__analysis_8cpp_a2a15907b54ab006b617598b1877d0c28}{risk\+\_\+analysis}} (\doxymbox{\hyperlink{class_solver}{Solver}} \texorpdfstring{$\ast$}{*}solver)
+\begin{DoxyCompactList}\small\item\em determines which reviewers are essential to the system For each reviewer, simulates the assignment process by temporarily removing them. If the required flow cannot be met without him, their ID is added to a list of offending reviewers The results are sorted and appended to the specified output file \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the risk analysis functionality for the solver, which identifies reviewers whose removal would lead to a decrease in the maximum flow. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{risk__analysis_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{risk__analysis_8cpp_a2a15907b54ab006b617598b1877d0c28}\index{risk\_analysis.cpp@{risk\_analysis.cpp}!risk\_analysis@{risk\_analysis}}
+\index{risk\_analysis@{risk\_analysis}!risk\_analysis.cpp@{risk\_analysis.cpp}}
+\doxysubsubsection{\texorpdfstring{risk\_analysis()}{risk\_analysis()}}
+{\footnotesize\ttfamily \label{risk__analysis_8cpp_a2a15907b54ab006b617598b1877d0c28} 
+std::\+vector$<$ int $>$ risk\+\_\+analysis (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_solver}{Solver}} \texorpdfstring{$\ast$}{*}}]{solver}{}\end{DoxyParamCaption})}
+
+
+
+determines which reviewers are essential to the system For each reviewer, simulates the assignment process by temporarily removing them. If the required flow cannot be met without him, their ID is added to a list of offending reviewers The results are sorted and appended to the specified output file 
+
+\begin{DoxyNote}{Note}
+the function returns immediately if Risk\+Analysis is not set to 1 
+
+this process uses a temporary \doxylink{class_solver}{Solver} for each reviewer 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em all\+Nodes} & reference to the vector that contais the submissions/\+reviewers \\
+\hline
+{\em params} & referenece to the \doxylink{struct_parameters}{Parameters} object \\
+\hline
+{\em ctrl} & reference to the \doxylink{struct_control}{Control} object \\
+\hline
+{\em out\+Name} & name of the file where the risk analysis results will be appended \\
+\hline
+\end{DoxyParams}

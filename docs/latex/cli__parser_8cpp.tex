@@ -1,0 +1,169 @@
+\doxysection{src/\+cli\+\_\+parser.cpp File Reference}
+\hypertarget{cli__parser_8cpp}{}\label{cli__parser_8cpp}\index{src/cli\_parser.cpp@{src/cli\_parser.cpp}}
+
+
+recieves input from command line and reads the contents of the input file  
+
+
+{\ttfamily \+\#include "{}../\+include/\+cli\+\_\+parser.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$cstring$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include $<$sstream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$stdexcept$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \doxymbox{\hyperlink{cli__parser_8cpp_a7e372d6bc061d6c55830120c3d49227d}{has\+Csv\+Extension}} (const std::\+string \&filename)
+\begin{DoxyCompactList}\small\item\em checks if a given filename has a .csv extension \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{cli__parser_8cpp_ad9314376884e8bb7cda288655d19e189}{parse\+Arguments}} (int argc, char \texorpdfstring{$\ast$}{*}argv\+[$\,$]\+, \doxymbox{\hyperlink{class_solver}{Solver}} \&solver)
+\begin{DoxyCompactList}\small\item\em analyses and validates the arguments from the command line \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{cli__parser_8cpp_a450a9b54a9af47bd9e824cfd9be93f59}{remove\+\_\+espacos}} (const std::\+string \&s)
+\begin{DoxyCompactList}\small\item\em removes the unecessary whitespaces in a string \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{cli__parser_8cpp_abc99a5ceda3836dfecb830858cd833be}{remove\+\_\+aspas}} (const std::\+string \&s)
+\begin{DoxyCompactList}\small\item\em removes the quotation marks from a string \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{cli__parser_8cpp_a306e06a9d7b46cd189f5ff9c925c98df}{parse\+Input}} (std::\+string input\+File, \doxymbox{\hyperlink{class_solver}{Solver}} \&solver)
+\begin{DoxyCompactList}\small\item\em parses a .csv file into data nodes(submissions and reviwers ), parameters and control settings \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{cli__parser_8cpp_a75882e9c1e6afa2fb7ccd7427b039f87}{Terminal\+\_\+cmd}} (std::\+string input, \doxymbox{\hyperlink{class_solver}{Solver}} \&solver)
+\begin{DoxyCompactList}\small\item\em Processes and executes interactive terminal commands from the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+recieves input from command line and reads the contents of the input file 
+
+
+
+\label{doc-func-members}
+\Hypertarget{cli__parser_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cli__parser_8cpp_a7e372d6bc061d6c55830120c3d49227d}\index{cli\_parser.cpp@{cli\_parser.cpp}!hasCsvExtension@{hasCsvExtension}}
+\index{hasCsvExtension@{hasCsvExtension}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{hasCsvExtension()}{hasCsvExtension()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_a7e372d6bc061d6c55830120c3d49227d} 
+bool has\+Csv\+Extension (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+checks if a given filename has a .csv extension 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & the name of the file to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the filename ends with .csv, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{cli__parser_8cpp_ad9314376884e8bb7cda288655d19e189}\index{cli\_parser.cpp@{cli\_parser.cpp}!parseArguments@{parseArguments}}
+\index{parseArguments@{parseArguments}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{parseArguments()}{parseArguments()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_ad9314376884e8bb7cda288655d19e189} 
+int parse\+Arguments (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\+[$\,$]\+, }\item[{\doxymbox{\hyperlink{class_solver}{Solver}} \&}]{solver}{}\end{DoxyParamCaption})}
+
+
+
+analyses and validates the arguments from the command line 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & argument count \\
+\hline
+{\em argv} & argument vector \\
+\hline
+{\em all\+Nodes} & reference to a vector to store the parsed data \\
+\hline
+{\em params} & reference to a \doxylink{struct_parameters}{Parameters} object \\
+\hline
+{\em ctrl} & reference to a \doxylink{struct_control}{Control} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success and -\/1 if argument count is wrong/\+the flag is not "{}-\/b"{}/\+ files lack the "{}.\+csv"{} extension 
+\end{DoxyReturn}
+\Hypertarget{cli__parser_8cpp_a306e06a9d7b46cd189f5ff9c925c98df}\index{cli\_parser.cpp@{cli\_parser.cpp}!parseInput@{parseInput}}
+\index{parseInput@{parseInput}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{parseInput()}{parseInput()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_a306e06a9d7b46cd189f5ff9c925c98df} 
+int parse\+Input (\begin{DoxyParamCaption}\item[{std::\+string}]{input\+File}{, }\item[{\doxymbox{\hyperlink{class_solver}{Solver}} \&}]{solver}{}\end{DoxyParamCaption})}
+
+
+
+parses a .csv file into data nodes(submissions and reviwers ), parameters and control settings 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+File} & path to the input .csv file \\
+\hline
+{\em all\+Nodes} & reference to a vector where parsed \doxylink{struct_data_node}{Data\+Node} objects will be stored \\
+\hline
+{\em params} & reference to the \doxylink{struct_parameters}{Parameters} object \\
+\hline
+{\em ctrl} & reference to the \doxylink{struct_control}{Control} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if parsing was sucessfull, -\/1 if an error occured 
+\end{DoxyReturn}
+\Hypertarget{cli__parser_8cpp_abc99a5ceda3836dfecb830858cd833be}\index{cli\_parser.cpp@{cli\_parser.cpp}!remove\_aspas@{remove\_aspas}}
+\index{remove\_aspas@{remove\_aspas}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{remove\_aspas()}{remove\_aspas()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_abc99a5ceda3836dfecb830858cd833be} 
+std::\+string remove\+\_\+aspas (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+removes the quotation marks from a string 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & input string to process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string with just it\textquotesingle{}s text (non-\/whitespaces/\+quotation marks) 
+\end{DoxyReturn}
+\Hypertarget{cli__parser_8cpp_a450a9b54a9af47bd9e824cfd9be93f59}\index{cli\_parser.cpp@{cli\_parser.cpp}!remove\_espacos@{remove\_espacos}}
+\index{remove\_espacos@{remove\_espacos}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{remove\_espacos()}{remove\_espacos()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_a450a9b54a9af47bd9e824cfd9be93f59} 
+std::\+string remove\+\_\+espacos (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+removes the unecessary whitespaces in a string 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & input string to process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string without the whitespaces 
+\end{DoxyReturn}
+\Hypertarget{cli__parser_8cpp_a75882e9c1e6afa2fb7ccd7427b039f87}\index{cli\_parser.cpp@{cli\_parser.cpp}!Terminal\_cmd@{Terminal\_cmd}}
+\index{Terminal\_cmd@{Terminal\_cmd}!cli\_parser.cpp@{cli\_parser.cpp}}
+\doxysubsubsection{\texorpdfstring{Terminal\_cmd()}{Terminal\_cmd()}}
+{\footnotesize\ttfamily \label{cli__parser_8cpp_a75882e9c1e6afa2fb7ccd7427b039f87} 
+int Terminal\+\_\+cmd (\begin{DoxyParamCaption}\item[{std::\+string}]{input}{, }\item[{\doxymbox{\hyperlink{class_solver}{Solver}} \&}]{solver}{}\end{DoxyParamCaption})}
+
+
+
+Processes and executes interactive terminal commands from the user. 
+
+
+\begin{DoxyItemize}
+\item This function acts as the main parser for the interactive command-\/line interface (CLI). It reads the raw string input provided by the user, validates the arguments, and calls the corresponding methods on the \doxylink{class_solver}{Solver} object to configure parameters, load datasets, run the Max-\/\+Flow algorithm, or set output configurations.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em input} & The command string typed by the user in the terminal. \\
+\hline
+{\em solver} & A reference to the main \doxylink{class_solver}{Solver} instance that is modified or executed based on the command. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Always returns 0 after processing the command. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}

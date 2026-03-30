@@ -1,0 +1,22 @@
+\doxysection{src/\+solver.cpp File Reference}
+\hypertarget{solver_8cpp}{}\label{solver_8cpp}\index{src/solver.cpp@{src/solver.cpp}}
+
+
+Implements the \doxylink{class_solver}{Solver} class, which is responsible for managing the graph structure, processing input data, computing the assignment of reviewers to submissions using the Edmonds-\/\+Karp algorithm, and generating the output file with the results. The \doxylink{class_solver}{Solver} class includes methods for building the graph based on specified parameters, cleaning the graph, checking for edge existence, and printing the graph for debugging purposes. It also handles file paths for input and output data and provides a method for processing hardcoded dummy input for development testing.  
+
+
+{\ttfamily \+\#include "{}../\+include/\+solver.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}../\+include/\+edmonds\+\_\+karp.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}../\+include/\+risk\+\_\+analysis.\+hpp"{}}\newline
+{\ttfamily \+\#include $<$cstdint$>$}\newline
+{\ttfamily \+\#include $<$fstream$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+
+
+\doxysubsection{Detailed Description}
+Implements the \doxylink{class_solver}{Solver} class, which is responsible for managing the graph structure, processing input data, computing the assignment of reviewers to submissions using the Edmonds-\/\+Karp algorithm, and generating the output file with the results. The \doxylink{class_solver}{Solver} class includes methods for building the graph based on specified parameters, cleaning the graph, checking for edge existence, and printing the graph for debugging purposes. It also handles file paths for input and output data and provides a method for processing hardcoded dummy input for development testing. 
+
+The \doxylink{class_solver}{Solver} class interacts with the Graph data structure to represent submissions, reviewers, source, and sink vertices, and uses the Edmonds-\/\+Karp algorithm to compute maximum flow for the assignment problem. The class also includes functionality for generating output files with the results of the assignment computation, including matched pairs and any missing reviews. The implementation is designed to be flexible, allowing for dynamic configuration of parameters and file paths, and includes methods for testing and debugging the graph structure. The code is written in C++17 and follows a modular design, separating concerns between graph management, flow computation, and output generation. 

@@ -1,0 +1,27 @@
+var class_solver =
+[
+    [ "computeAssignment", "class_solver.html#a6670c8184eac901ef6b1afeed393e849", null ],
+    [ "generateOutput", "class_solver.html#ae86122e03a375e0e68f678e6b715dd14", null ],
+    [ "generateVertices", "class_solver.html#a884f7cfaabfc7510c984e90c1d1131c4", null ],
+    [ "getComputeMode", "class_solver.html#ae33ec8401de8b9b338e6d8422f7b2fd1", null ],
+    [ "getInputFile", "class_solver.html#afab1f57ba113a4b9874369ded2be5d62", null ],
+    [ "getMaxReviewersPerSubmission", "class_solver.html#a4e1b34ec409a080430fb58e7a6cf2d3e", null ],
+    [ "getMinReviewsPerSubmission", "class_solver.html#a5762a4f51188789731303615a0ce5f95", null ],
+    [ "getOutputFile", "class_solver.html#ae683f8aad5239570f80e409e6b42eb26", null ],
+    [ "getReviewers", "class_solver.html#ab82b7951e475f10fc5632c361f57e6b4", null ],
+    [ "getRiskAnalysis", "class_solver.html#a2d421fbbe8ae4c526907ce581bf402bd", null ],
+    [ "getSubmissionAmount", "class_solver.html#a582d175b9a2a62845cb7a0d1625d5e2b", null ],
+    [ "getSubmissions", "class_solver.html#aa7d8484bae0b25d855700d27eeb28456", null ],
+    [ "getTotalFlow", "class_solver.html#ac2062d3ffe19e16557601a2c11a56722", null ],
+    [ "processDummyInput", "class_solver.html#a52807af904fbec2630e41c5fe08585f5", null ],
+    [ "setReviewers", "class_solver.html#a31f1d33449b54f1ce1dafb883fe76bca", null ],
+    [ "setSkipReviewerId", "class_solver.html#a8bb3578d14c683759b92ec8603bc9774", null ],
+    [ "setSubmissions", "class_solver.html#a2f32302f8ef159e48c9356debdf63768", null ],
+    [ "updateComputeMode", "class_solver.html#ac99c349fb1e3fea92eca996842747273", null ],
+    [ "updateInputFile", "class_solver.html#a7cf925cda33bf0d076cc69c7a68eb43d", null ],
+    [ "updateMaxReviewsPerReviewer", "class_solver.html#a876b2f0fc1ff72e57fb3588802218de6", null ],
+    [ "updateMinReviewsPerSubmission", "class_solver.html#a77aa861d8b0ba50b4f857e27993f2c1e", null ],
+    [ "updateOutputFile", "class_solver.html#a95fbeea2e49f2c14b494f5585716aa6d", null ],
+    [ "updateParameterFlags", "class_solver.html#a2e70a89af7f98a546b5681cc0ca24c88", null ],
+    [ "updateRiskAnalysis", "class_solver.html#a3ddd703a04d8005ecbb7b8ba2cdfa6a5", null ]
+];

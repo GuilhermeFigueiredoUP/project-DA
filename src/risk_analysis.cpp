@@ -1,3 +1,5 @@
+/// @file risk_analysis.cpp
+/// @brief Implements the risk analysis functionality for the solver, which identifies reviewers whose removal would lead to a decrease in the maximum flow.
 
 #include "../include/risk_analysis.hpp"
 #include <vector>

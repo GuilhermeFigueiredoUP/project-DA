@@ -1,0 +1,163 @@
+\doxysection{src/\+edmonds\+\_\+karp.cpp File Reference}
+\hypertarget{edmonds__karp_8cpp}{}\label{edmonds__karp_8cpp}\index{src/edmonds\_karp.cpp@{src/edmonds\_karp.cpp}}
+
+
+Implements the Edmonds-\/\+Karp algorithm for computing maximum flow in a graph, along with related helper functions for finding augmenting paths and updating flow values. This implementation uses a breadth-\/first search (BFS) approach to find augmenting paths and updates the flow along those paths until no more augmenting paths can be found. The main function, edmonds\+Karp, initializes the flow and repeatedly calls the helper functions to compute the maximum flow from a specified source to a target vertex in the graph.  
+
+
+{\ttfamily \+\#include "{}../\+include/\+edmonds\+\_\+karp.\+hpp"{}}\newline
+{\ttfamily \+\#include "{}../\+data\+\_\+structures/\+\+Graph.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{edmonds__karp_8cpp_a744ca39c6d46e7d31a894034c5a94ca1}{compute\+Edmonds\+Karp}} (Graph$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&graph, \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} source, \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} sink)
+\begin{DoxyCompactList}\small\item\em Computes the maximum flow in a graph using the Edmonds-\/\+Karp algorithm. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\void \doxymbox{\hyperlink{edmonds__karp_8cpp_acb329d42a9a476d072878ef35a6a343c}{test\+And\+Visit}} (std::\+queue$<$ Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ \&q, Edge$<$ T $>$ \texorpdfstring{$\ast$}{*}e, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}w, double residual)
+\begin{DoxyCompactList}\small\item\em Tests and visits a vertex in the graph. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\bool \doxymbox{\hyperlink{edmonds__karp_8cpp_a7ef59ca73ad539b2405ee93bb9e1b8de}{find\+Augmenting\+Path}} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}g, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}s, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}t)
+\begin{DoxyCompactList}\small\item\em Finds an augmenting path in the graph using BFS. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\double \doxymbox{\hyperlink{edmonds__karp_8cpp_ab38647bac4738e296aba7b1bc4744835}{find\+Min\+Residual\+Along\+Path}} (Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}s, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}t)
+\begin{DoxyCompactList}\small\item\em Finds the minimum residual capacity along a path. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\void \doxymbox{\hyperlink{edmonds__karp_8cpp_a9813dc412187df7cc322afea1283c22c}{augment\+Flow\+Along\+Path}} (Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}s, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}t, double f)
+\begin{DoxyCompactList}\small\item\em Augments the flow along a path. \end{DoxyCompactList}\item 
+\Hypertarget{edmonds__karp_8cpp_af6e3fec873d9fb347b8f2dc968eab91d}\label{edmonds__karp_8cpp_af6e3fec873d9fb347b8f2dc968eab91d} 
+{\footnotesize template$<$class T$>$ }\\void {\bfseries edmonds\+Karp} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}g, int source, int target)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the Edmonds-\/\+Karp algorithm for computing maximum flow in a graph, along with related helper functions for finding augmenting paths and updating flow values. This implementation uses a breadth-\/first search (BFS) approach to find augmenting paths and updates the flow along those paths until no more augmenting paths can be found. The main function, edmonds\+Karp, initializes the flow and repeatedly calls the helper functions to compute the maximum flow from a specified source to a target vertex in the graph. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{edmonds__karp_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{edmonds__karp_8cpp_a9813dc412187df7cc322afea1283c22c}\index{edmonds\_karp.cpp@{edmonds\_karp.cpp}!augmentFlowAlongPath@{augmentFlowAlongPath}}
+\index{augmentFlowAlongPath@{augmentFlowAlongPath}!edmonds\_karp.cpp@{edmonds\_karp.cpp}}
+\doxysubsubsection{\texorpdfstring{augmentFlowAlongPath()}{augmentFlowAlongPath()}}
+{\footnotesize\ttfamily \label{edmonds__karp_8cpp_a9813dc412187df7cc322afea1283c22c} 
+template$<$class T$>$ \\
+void augment\+Flow\+Along\+Path (\begin{DoxyParamCaption}\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{t}{, }\item[{double}]{f}{}\end{DoxyParamCaption})}
+
+
+
+Augments the flow along a path. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & template type for the graph vertices \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The source vertex \\
+\hline
+{\em t} & The sink vertex \\
+\hline
+{\em f} & The flow to augment along the path \\
+\hline
+\end{DoxyParams}
+\Hypertarget{edmonds__karp_8cpp_a744ca39c6d46e7d31a894034c5a94ca1}\index{edmonds\_karp.cpp@{edmonds\_karp.cpp}!computeEdmondsKarp@{computeEdmondsKarp}}
+\index{computeEdmondsKarp@{computeEdmondsKarp}!edmonds\_karp.cpp@{edmonds\_karp.cpp}}
+\doxysubsubsection{\texorpdfstring{computeEdmondsKarp()}{computeEdmondsKarp()}}
+{\footnotesize\ttfamily \label{edmonds__karp_8cpp_a744ca39c6d46e7d31a894034c5a94ca1} 
+int compute\+Edmonds\+Karp (\begin{DoxyParamCaption}\item[{Graph$<$ \doxymbox{\hyperlink{struct_data_node}{Data\+Node}} $>$ \&}]{graph}{, }\item[{\doxymbox{\hyperlink{struct_data_node}{Data\+Node}}}]{source}{, }\item[{\doxymbox{\hyperlink{struct_data_node}{Data\+Node}}}]{sink}{}\end{DoxyParamCaption})}
+
+
+
+Computes the maximum flow in a graph using the Edmonds-\/\+Karp algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & The graph to compute the maximum flow for \\
+\hline
+{\em source} & The source vertex \\
+\hline
+{\em sink} & The sink vertex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The maximum flow value 
+\end{DoxyReturn}
+\Hypertarget{edmonds__karp_8cpp_a7ef59ca73ad539b2405ee93bb9e1b8de}\index{edmonds\_karp.cpp@{edmonds\_karp.cpp}!findAugmentingPath@{findAugmentingPath}}
+\index{findAugmentingPath@{findAugmentingPath}!edmonds\_karp.cpp@{edmonds\_karp.cpp}}
+\doxysubsubsection{\texorpdfstring{findAugmentingPath()}{findAugmentingPath()}}
+{\footnotesize\ttfamily \label{edmonds__karp_8cpp_a7ef59ca73ad539b2405ee93bb9e1b8de} 
+template$<$class T$>$ \\
+bool find\+Augmenting\+Path (\begin{DoxyParamCaption}\item[{Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{t}{}\end{DoxyParamCaption})}
+
+
+
+Finds an augmenting path in the graph using BFS. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & template type for the graph vertices \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The graph to search in \\
+\hline
+{\em s} & The source vertex \\
+\hline
+{\em t} & The sink vertex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an augmenting path is found, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{edmonds__karp_8cpp_ab38647bac4738e296aba7b1bc4744835}\index{edmonds\_karp.cpp@{edmonds\_karp.cpp}!findMinResidualAlongPath@{findMinResidualAlongPath}}
+\index{findMinResidualAlongPath@{findMinResidualAlongPath}!edmonds\_karp.cpp@{edmonds\_karp.cpp}}
+\doxysubsubsection{\texorpdfstring{findMinResidualAlongPath()}{findMinResidualAlongPath()}}
+{\footnotesize\ttfamily \label{edmonds__karp_8cpp_ab38647bac4738e296aba7b1bc4744835} 
+template$<$class T$>$ \\
+double find\+Min\+Residual\+Along\+Path (\begin{DoxyParamCaption}\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{t}{}\end{DoxyParamCaption})}
+
+
+
+Finds the minimum residual capacity along a path. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & template type for the graph vertices \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The source vertex \\
+\hline
+{\em t} & The sink vertex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum residual capacity along the path 
+\end{DoxyReturn}
+\Hypertarget{edmonds__karp_8cpp_acb329d42a9a476d072878ef35a6a343c}\index{edmonds\_karp.cpp@{edmonds\_karp.cpp}!testAndVisit@{testAndVisit}}
+\index{testAndVisit@{testAndVisit}!edmonds\_karp.cpp@{edmonds\_karp.cpp}}
+\doxysubsubsection{\texorpdfstring{testAndVisit()}{testAndVisit()}}
+{\footnotesize\ttfamily \label{edmonds__karp_8cpp_acb329d42a9a476d072878ef35a6a343c} 
+template$<$class T$>$ \\
+void test\+And\+Visit (\begin{DoxyParamCaption}\item[{std::\+queue$<$ Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*} $>$ \&}]{q}{, }\item[{Edge$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{e}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{w}{, }\item[{double}]{residual}{}\end{DoxyParamCaption})}
+
+
+
+Tests and visits a vertex in the graph. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & template type for the graph vertices \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em q} & queue of vertices to visit \\
+\hline
+{\em e} & edge being evaluated \\
+\hline
+{\em w} & vertex being evaluated \\
+\hline
+{\em residual} & residual capacity of the edge \\
+\hline
+\end{DoxyParams}

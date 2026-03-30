@@ -12,20 +12,10 @@
 #include <vector>
 #include <stdexcept>
 
-/// @brief verifies if the file has ".csv" extension
-///@note case sensitive  
-/// @param filename name of the file
-/// @return true if file ends in ".csv" and false if not
 bool hasCsvExtension(const std::string &filename) {
     return filename.size() >= 4 && filename.substr(filename.size() - 4) == ".csv";
 }
 
-
-/// @brief parses execution arguments if any are provided
-/// @param argc the amount of execution arguments passed
-/// @param argv a pointer to the execution arguments themselves
-/// @param solver a reference to the solver whose internal state is updated upon receiving input
-/// @return returns an execution code, 0 for sucess otherwise failure
 int parseArguments(int argc, char *argv[], Solver &solver) {
     // check argument count and batch mode flag
     if (argc != 4 || strcmp(argv[1], "-b") != 0) {
@@ -64,6 +54,7 @@ std::string remove_espacos(const std::string &s){
     }
     return res;
 }
+
 /// @brief removes the quotation marks from a string 
 /// @param s input string to process 
 /// @return string with just it's text (non-whitespaces/quotation marks)
@@ -181,16 +172,7 @@ int parseInput(std::string inputFile, Solver &solver) {
     return 0;
 }
 
-/**
- * @brief Processes and executes interactive terminal commands from the user.
- * * This function acts as the main parser for the interactive command-line interface (CLI).
- * It reads the raw string input provided by the user, validates the arguments, and
- * calls the corresponding methods on the Solver object to configure parameters,
- * load datasets, run the Max-Flow algorithm, or set output configurations.
- * * @param input The command string typed by the user in the terminal.
- * @param solver A reference to the main Solver instance that is modified or executed based on the command.
- * @return int Always returns 0 after processing the command.
- */
+
 int Terminal_cmd(std::string input, Solver& solver) {
     // Help Command
     if (input == "-help" || input == "help") {

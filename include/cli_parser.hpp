@@ -25,7 +25,20 @@ int parseArguments(int argc, char *argv[], Solver &solver) ;
 int parseInput(std::string inputFile, Solver &solver);
 
 // --- helper methods ---
+/// @brief checks if a given filename has a .csv extension
+/// @param filename the name of the file to check
+/// @return true if the filename ends with .csv, false otherwise
 bool hasCsvExtension(const std::string &filename);
 
 // --- terminal commands ---
+/**
+ * @brief Processes and executes interactive terminal commands from the user.
+ * * This function acts as the main parser for the interactive command-line interface (CLI).
+ * It reads the raw string input provided by the user, validates the arguments, and
+ * calls the corresponding methods on the Solver object to configure parameters,
+ * load datasets, run the Max-Flow algorithm, or set output configurations.
+ * * @param input The command string typed by the user in the terminal.
+ * @param solver A reference to the main Solver instance that is modified or executed based on the command.
+ * @return int Always returns 0 after processing the command.
+ */
 int Terminal_cmd(std::string input, Solver& solver);
