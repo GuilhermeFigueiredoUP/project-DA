@@ -22,9 +22,4 @@ int parseArguments(int argc, char *argv[], std:: vector<DataNode>& allNodes, Par
 /// @param params reference to the Parameters object
 /// @param ctrl reference to the Control object
 /// @return 0 if parsing was sucessfull, -1 if an error occured
-int parseInput(string inputFile, vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
-
-
-
-
-
+int parseInput(std::string inputFile, std::vector<DataNode>& allNodes,Parameters &params, Control&ctrl);
