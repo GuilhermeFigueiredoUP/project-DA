@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <cstring>
 
 bool hasCsvExtension(const std::string &filename) {
     return filename.size() >= 4 && filename.substr(filename.size() - 4) == ".csv";
@@ -158,6 +159,7 @@ int parseInput(std::string inputFile, std::vector<DataNode>& allNodes, Parameter
 
         }
     }
+    return 0;
 }
 
 int Terminal_cmd(std::string input, Solver& solver) {
